@@ -1,0 +1,48 @@
+--------------------------------------------------------
+- DATA DO ERRO: 01/07/2021
+- HORÁRIO DO ERRO: 18:14
+- CÓDIGO DO LOGADO: 1
+- FUNÇÃO DO ERRO: CadastrarTipo
+- MENSAGEM DE ERRO: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'db_os.tb_tipoequips' doesn't exist
+--------------------------------------------------------
+- DATA DO ERRO: 01/07/2021
+- HORÁRIO DO ERRO: 18:54
+- CÓDIGO DO LOGADO: 1
+- FUNÇÃO DO ERRO: CadastrarModelo
+- MENSAGEM DE ERRO: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'nsome_modelo' in 'field list'
+--------------------------------------------------------
+- DATA DO ERRO: 01/07/2021
+- HORÁRIO DO ERRO: 22:00
+- CÓDIGO DO LOGADO: 1
+- FUNÇÃO DO ERRO: CadastrarSetor
+- MENSAGEM DE ERRO: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'db_os.tb_setopr' doesn't exist
+--------------------------------------------------------
+- DATA DO ERRO: 03/07/2021
+- HORÁRIO DO ERRO: 10:35
+- CÓDIGO DO LOGADO: 1
+- FUNÇÃO DO ERRO: CadastrarSetor
+- MENSAGEM DE ERRO: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'db_os.tb_setors' doesn't exist
+--------------------------------------------------------
+- DATA DO ERRO: 2021-07-06
+- HORÁRIO DO ERRO: 06/07/2021
+- CÓDIGO DO LOGADO: 1
+- FUNÇÃO DO ERRO: AlterarTipo
+- MENSAGEM DE ERRO: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'nome_tipoequip' in 'field list'
+--------------------------------------------------------
+- DATA DO ERRO: 08/07/2021
+- HORÁRIO DO ERRO: 15:14
+- CÓDIGO DO LOGADO: 1
+- FUNÇÃO DO ERRO: AlterarSetor
+- MENSAGEM DE ERRO: SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens
+--------------------------------------------------------
+- DATA DO ERRO: 08/07/2021
+- HORÁRIO DO ERRO: 15:15
+- CÓDIGO DO LOGADO: 1
+- FUNÇÃO DO ERRO: AlterarSetor
+- MENSAGEM DE ERRO: SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens
+--------------------------------------------------------
+- DATA DO ERRO: 15/07/2021
+- HORÁRIO DO ERRO: 11:03
+- CÓDIGO DO LOGADO: 1
+- FUNÇÃO DO ERRO: CadastrarUserFuncionario
+- MENSAGEM DE ERRO: SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens
