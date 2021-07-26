@@ -1,16 +1,23 @@
 <?php
 
-$tipo_tela = 'CONSULTAR_USUARIO';
-
+require_once '../../controller/UtilCTRL.php';
 require_once '../../controller/UsuarioCTRL.php';
-require_once '../../vo/UsuarioVO.php';
 
-$ctrl = new UsuarioCTRL();
+$tipo_tela = 'CONSULTAR_USUARIO';
+$tipo_pesq = '';
+$nome_pesq = '';
 
 if (isset($_POST['btnBuscar'])) {
+    $tipo_pesq = $_POST['tipo'];
+    $nome_pesq = $_POST['nome_pesq'];
 
-
+    $ctrl = new UsuarioCTRL();
+    $users = $ctrl->FiltrarUsuario($nome_pesq, $tipo_pesq);
+    if (count($users) == 0) {
+        $ret = 2;
+    }
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -67,7 +74,7 @@ if (isset($_POST['btnBuscar'])) {
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label>Pesquisar por Nome</label>
-                                    <input class="form-control" name="nome_pesq" id="id_pesq" >
+                                    <input class="form-control" name="nome_pesq" id="id_pesq" value="<?= $nome_pesq ?>">
                                 </div>
                             </div>
 
@@ -78,38 +85,43 @@ if (isset($_POST['btnBuscar'])) {
                     </div>
                 </div>
                 <!-- /.card -->
-                <div class="row">
-                    <div class="col-12">
-                        <div class="card">
-                            <div class="card-header">
-                                <h3 class="card-title">Usuários cadastrados</h3>
+                <?php if (isset($users) && count($users) > 0) { ?>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3 class="card-title">Usuários cadastrados</h3>
+                                </div>
+                                <!-- /.card-header -->
+                                <div class="card-body">
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th>Nome</th>
+                                                <th>Tipo</th>
+                                                <th>Ação</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php foreach ($users as $item) { ?>
+                                                <tr>
+                                                    <td><?= $item['nome_usuario'] ?></td>
+                                                    <td><?= UtilCTRL::NomeTipoUser($item['tipo_usuario']) ?></td>
+                                                    <td>
+                                                        <a href="alterar_usuario.php?tipo=<?= $item['tipo_usuario'] ?>&cod=<?= $item['id_usuario'] ?>" class="btn btn-warning btn-xs">Alterar</a>
+                                                        <a href="#" class="btn btn-danger btn-xs">Excluir</a>
+                                                    </td>
+                                                </tr>
+                                            <?php } ?>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <!-- /.card-body -->
                             </div>
-                            <!-- /.card-header -->
-                            <div class="card-body">
-                                <table class="table table-bordered">
-                                    <thead>
-                                        <tr>
-                                            <th>Nome</th>
-                                            <th>Tipo</th>
-                                            <th>Ação</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>(nome)</td>
-                                            <td>(tipo)</td>
-                                            <td>
-                                                <a href="#" class="btn btn-warning btn-xs">Alterar</a>
-                                                <a href="#" class="btn btn-danger btn-xs">Excluir</a>
-                                            </td>
-                                    </tbody>
-                                </table>
-                            </div>
-                            <!-- /.card-body -->
+                            <!-- /.card -->
                         </div>
-                        <!-- /.card -->
                     </div>
-                </div>
+                <?php } ?>
 
             </section>
             <!-- /.content -->

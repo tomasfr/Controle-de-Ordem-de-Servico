@@ -19,7 +19,11 @@ function RetornarMsg(num) {
         case 1:
             msg = "Ação realizada com sucesso.";
             break;
-            
+
+        case 2:
+            msg = "Não foi encontrado nenhum registro para ser exibido";
+            break;
+
     }
 
     return msg;

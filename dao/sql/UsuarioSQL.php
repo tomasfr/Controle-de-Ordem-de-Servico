@@ -35,6 +35,43 @@ class UsuarioSQL
         return $sql;
     }
 
+    public static function FILTRAR_USUARIO($tipo, $nome)
+    {
+        $sql = '';
+
+        if ($tipo == 0 && $nome != '') {
+
+            $sql = 'SELECT id_usuario,
+                           nome_usuario,
+                           tipo_usuario
+                        from tb_usuario
+                        where nome_usuario like ?';
+        } else if ($tipo != 0 && $nome == '') {
+
+            $sql = 'SELECT id_usuario,
+                           nome_usuario,
+                           tipo_usuario
+                        from tb_usuario
+                        where tipo_usuario = ?';
+        } else if ($tipo != 0 && $nome != '') {
+
+            $sql = 'SELECT id_usuario,
+                           nome_usuario,
+                           tipo_usuario
+                        from tb_usuario
+                        where tipo_usuario = ?
+                        and nome_usuario like ?';
+        } else if ($tipo == 0 && $nome == '') {
+
+            $sql = 'SELECT id_usuario,
+                           nome_usuario,
+                           tipo_usuario
+                        from tb_usuario';
+        }
+
+        return $sql;
+    }
+
     public static function CONSULTAR_CPF()
     {
 
@@ -56,6 +93,30 @@ class UsuarioSQL
             $sql = 'SELECT count(email_tec) as contar
                 from tb_tecnico where email_tec = ?';
         }
+
+        return $sql;
+    }
+
+    public static function EXCLUIR_USUARIO()
+    {
+        $sql = '';
+        $sql = 'DELETE from tb_usuario where id_usuario = ?';
+
+        return $sql;
+    }
+
+    public static function EXCLUIR_FUNCIONARIO()
+    {
+        $sql = '';
+        $sql = 'DELETE from tb_funcionario where id_usuario_func = ?';
+
+        return $sql;
+    }
+
+    public static function EXCLUIR_TECNICO()
+    {
+        $sql = '';
+        $sql = 'DELETE from tb_tecnico where id_usuario_tec = ?';
 
         return $sql;
     }

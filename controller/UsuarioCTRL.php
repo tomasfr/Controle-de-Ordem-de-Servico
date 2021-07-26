@@ -67,9 +67,14 @@ class UsuarioCTRL
         return $dao->CadastrarUserTec($vo);
     }
 
+    public function FiltrarUsuario($nome, $tipo)
+    {
+        $dao = new UsuarioDAO();
+        return $dao->FiltrarUsuario($nome, $tipo);
+    }
+
     public function VerificarCPF($cpf)
     {
-
         $dao = new UsuarioDAO();
         return $dao->ConsultarCPF(UtilCTRL::TirarCaracteresEspeciais($cpf));
     }

@@ -8,6 +8,23 @@ class UtilCTRL
         return $_SERVER['DOCUMENT_ROOT'] . '/Controleos/';
     }
 
+    public static function NomeTipoUser($tipo)
+    {
+        switch ($tipo) {
+            case 1:
+                $nome = 'Administrador';
+                break;
+            case 2:
+                $nome = 'Funcionário';
+                break;
+            case 3:
+                $nome = 'Técnico';
+                break;
+        }
+
+        return $nome;
+    }
+
     public static function CodigoLogado()
     {
         return 1;

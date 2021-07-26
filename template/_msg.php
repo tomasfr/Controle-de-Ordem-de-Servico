@@ -31,5 +31,11 @@ if (isset($ret)) {
                      toastr.success(RetornarMsg(1))
                  </script>';
             break;
+
+        case 2:
+            echo '<script>
+                     toastr.info(RetornarMsg(2))
+                 </script>';
+            break;
     }
 }
