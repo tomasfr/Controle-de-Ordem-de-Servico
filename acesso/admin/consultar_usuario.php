@@ -2,6 +2,7 @@
 
 require_once '../../controller/UtilCTRL.php';
 require_once '../../controller/UsuarioCTRL.php';
+require_once '../../vo/UsuarioVO.php';
 
 $tipo_tela = 'CONSULTAR_USUARIO';
 $tipo_pesq = '';
@@ -16,6 +17,21 @@ if (isset($_POST['btnBuscar'])) {
     if (count($users) == 0) {
         $ret = 2;
     }
+} else if (isset($_POST['btnExcluir'])) {
+
+    $dados = explode('-', $_POST['id_excluir']);
+
+    $id = $dados[0];
+    $tipo = $dados[1];
+
+    $vo = new UsuarioVO();
+
+    $vo->setIdUser($id);
+    $vo->setTipo($tipo);
+
+    $ctrl = new UsuarioCTRL();
+
+    $ret = $ctrl->ExcluirUsuario($vo);
 }
 
 ?>
@@ -109,12 +125,17 @@ if (isset($_POST['btnBuscar'])) {
                                                     <td><?= UtilCTRL::NomeTipoUser($item['tipo_usuario']) ?></td>
                                                     <td>
                                                         <a href="alterar_usuario.php?tipo=<?= $item['tipo_usuario'] ?>&cod=<?= $item['id_usuario'] ?>" class="btn btn-warning btn-xs">Alterar</a>
-                                                        <a href="#" class="btn btn-danger btn-xs">Excluir</a>
+                                                        <a href="#" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#modal-excluir" onclick="CarregarDadosExcluir('<?= $item['id_usuario'] . '-' . $item['tipo_usuario'] ?>', '<?= $item['nome_usuario'] ?>')">Excluir</a>
                                                     </td>
                                                 </tr>
                                             <?php } ?>
                                         </tbody>
                                     </table>
+                                    <form method="post" action="consultar_usuario.php">
+                                        <?php
+                                        include_once 'modal/_modal_excluir.php';
+                                        ?>
+                                    </form>
                                 </div>
                                 <!-- /.card-body -->
                             </div>

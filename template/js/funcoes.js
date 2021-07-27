@@ -78,7 +78,6 @@ function CarregarDadosSetor(id, nome) {
 }
 
 function CarregarDadosExcluir(id, nome) {
-
     $("#id_excluir").val(id);
     $("#nome_excluir").html(nome);
 }

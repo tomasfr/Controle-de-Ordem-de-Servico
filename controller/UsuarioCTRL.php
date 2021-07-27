@@ -6,6 +6,10 @@ require_once UtilCTRL::RetornarCaminho() . 'dao/UsuarioDAO.php';
 define('CadastrarUserAdm', 'CadastrarUserAdm');
 define('CadastrarUserTecnico', 'CadastrarUserTecnico');
 define('CadastrarUserFuncionario', 'CadastrarUserFuncionario');
+define('ExcluirUserAdm', 'ExcluirUserAdm');
+define('ExcluirUserFunc', 'ExcluirUserFunc');
+define('ExcluirUserTec', 'ExcluirUserTec');
+
 
 class UsuarioCTRL
 {
@@ -65,6 +69,17 @@ class UsuarioCTRL
 
         $dao = new UsuarioDAO();
         return $dao->CadastrarUserTec($vo);
+    }
+
+    public function ExcluirUsuario(UsuarioVO $vo)
+    {
+        $vo->setFuncaoErro($vo->getTipo() == 1 ? ExcluirUserAdm : ($vo->getTipo() == 2 ? ExcluirUserFunc : ExcluirUserTec));
+        $vo->setIdUserErro(UtilCTRL::CodigoLogado());
+        $vo->setHoraErro(UtilCTRL::HoraAtual());
+        $vo->setDataErro(UtilCTRL::DataAtualExibir());
+       
+        $dao = new UsuarioDAO();
+        return $dao->ExcluirUsuario($vo);
     }
 
     public function FiltrarUsuario($nome, $tipo)
