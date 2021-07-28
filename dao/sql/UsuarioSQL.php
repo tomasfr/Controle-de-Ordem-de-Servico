@@ -61,6 +61,7 @@ class UsuarioSQL
                         from tb_usuario
                         where tipo_usuario = ?
                         and nome_usuario like ?';
+                        
         } else if ($tipo == 0 && $nome == '') {
 
             $sql = 'SELECT id_usuario,
