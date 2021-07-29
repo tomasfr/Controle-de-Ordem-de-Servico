@@ -61,7 +61,6 @@ class UsuarioSQL
                         from tb_usuario
                         where tipo_usuario = ?
                         and nome_usuario like ?';
-                        
         } else if ($tipo == 0 && $nome == '') {
 
             $sql = 'SELECT id_usuario,
@@ -69,6 +68,63 @@ class UsuarioSQL
                            tipo_usuario
                         from tb_usuario';
         }
+
+        return $sql;
+    }
+
+    public static function DETALHAR_USUARIO()
+    {
+        $sql = '';
+
+        $sql = 'SELECT 
+                        usu.nome_usuario,
+                        usu.tipo_usuario,
+                        usu.id_usuario,
+                        usu.cpf_usuario,
+                        fun.tel_func,
+                        fun.end_func,
+                        fun.email_func,
+                        id_setor,
+                        tec.tel_tec,
+                        tec.end_tec,
+                        tec.email_tec
+                    from tb_usuario as usu
+                left join tb_funcionario as fun
+                    on usu.id_usuario = fun.id_usuario_func
+                left join tb_tecnico as tec
+                    on usu.id_usuario = tec.id_usuario_tec
+                where usu.id_usuario = ?';
+
+        return $sql;
+    }
+
+    public static function ALTERAR_USUARIO()
+    {
+        $sql = '';
+        $sql = 'UPDATE tb_usuario set nome_usuario = ?, cpf_usuario = ? where id_usuario = ?';
+
+        return $sql;
+    }
+    public static function ALTERAR_FUNCIONARIO()
+    {
+        $sql = '';
+        $sql = 'UPDATE tb_funcionario 
+                        set tel_func = ?, 
+                            end_func = ?, 
+                            email_func = ?, 
+                            id_setor = ? 
+                        where id_usuario_func = ?';
+
+        return $sql;
+    }
+    public static function ALTERAR_TECNICO()
+    {
+        $sql = '';
+        $sql = 'UPDATE tb_tecnico
+                        set tel_tec = ?, 
+                            end_tec = ?, 
+                            email_tec = ?
+                        where id_usuario_tec = ?';
 
         return $sql;
     }

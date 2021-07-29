@@ -107,6 +107,12 @@ class UsuarioCTRL
         }
     }
 
+    public function DetalharUsuario($idUser)
+    {
+        $dao = new UsuarioDAO();
+        return $dao->DetalharUsuario($idUser);
+    }
+
     public function AlterarDadosFunc(FuncionarioVO $vo)
     {
         if ($vo->getEmail() == '' || $vo->getEndereco() == '' || $vo->getTel() == '') {
