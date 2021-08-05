@@ -101,7 +101,10 @@ class UsuarioSQL
     public static function ALTERAR_USUARIO()
     {
         $sql = '';
-        $sql = 'UPDATE tb_usuario set nome_usuario = ?, cpf_usuario = ? where id_usuario = ?';
+        $sql = 'UPDATE tb_usuario 
+                        set nome_usuario = ?, 
+                        cpf_usuario = ? 
+                    where id_usuario = ?';
 
         return $sql;
     }
@@ -129,13 +132,17 @@ class UsuarioSQL
         return $sql;
     }
 
-    public static function CONSULTAR_CPF()
+    public static function CONSULTAR_CPF($id)
     {
-
         $sql = '';
-        $sql = 'SELECT count(cpf_usuario) as contar
+        if ($id == '') {
+            $sql = 'SELECT count(cpf_usuario) as contar
                 from tb_usuario where cpf_usuario = ?';
-
+        } else {
+            $sql = 'SELECT count(cpf_usuario) as contar
+                from tb_usuario where cpf_usuario = ?
+                and id_usuario != ?';
+        }
         return $sql;
     }
 

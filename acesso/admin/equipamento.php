@@ -98,7 +98,7 @@ $modelos = $ctrl_modelo->ConsultarModelo();
 
                             <div class="form-group">
                                 <label>Identificação</label>
-                                <input name="ident" id="ident" class="form-control" placeholder="Digite aqui..." maxlength="10">
+                                <input name="ident" id="ident" class="form-control" placeholder="Digite aqui..." maxlength="30">
                             </div>
 
                             <div class="form-group">

@@ -115,6 +115,97 @@ class UsuarioDAO extends Conexao
         }
     }
 
+    public function AlterarUserAdm(UsuarioVO $vo)
+    {
+        $this->sql = $this->conexao->prepare(UsuarioSQL::ALTERAR_USUARIO());
+
+        $i = 1;
+        $this->sql->bindValue($i++, $vo->getNomeUser());
+        $this->sql->bindValue($i++, $vo->getCpf());
+        $this->sql->bindValue($i++, $vo->getIdUser());
+
+        try {
+
+            $this->sql->execute();
+            return 1;
+        } catch (Exception $ex) {
+
+            $vo->setMsgErro($ex->getMessage());
+            parent::GravarErro($vo);
+            return -1;
+        }
+    }
+
+    public function AlterarUserFunc(FuncionarioVO $vo)
+    {
+        $this->sql = $this->conexao->prepare(UsuarioSQL::ALTERAR_USUARIO());
+
+        $i = 1;
+        $this->sql->bindValue($i++, $vo->getNomeUser());
+        $this->sql->bindValue($i++, $vo->getCpf());
+        $this->sql->bindValue($i++, $vo->getIdUser());
+
+        $this->conexao->beginTransaction();
+
+        try {
+
+            $this->sql->execute();
+
+            $this->sql = $this->conexao->prepare(UsuarioSQL::ALTERAR_FUNCIONARIO());
+
+            $i = 1;
+            $this->sql->bindValue($i++, $vo->getTel());
+            $this->sql->bindValue($i++, $vo->getEndereco());
+            $this->sql->bindValue($i++, $vo->getEmail());
+            $this->sql->bindValue($i++, $vo->getIdSetor());
+            $this->sql->bindValue($i++, $vo->getIdUser());
+
+            $this->sql->execute();
+
+            $this->conexao->commit();
+            return 1;
+        } catch (Exception $ex) {
+
+            $this->conexao->rollBack();
+            $vo->setMsgErro($ex->getMessage());
+            parent::GravarErro($vo);
+            return -1;
+        }
+    }
+
+    public function AlterarUserTec(TecnicoVO $vo)
+    {
+        $this->sql = $this->conexao->prepare(UsuarioSQL::ALTERAR_USUARIO());
+        $i = 1;
+        $this->sql->bindValue($i++, $vo->getNomeUser());
+        $this->sql->bindValue($i++, $vo->getCpf());
+        $this->sql->bindValue($i++, $vo->getIdUser());
+
+        $this->conexao->beginTransaction();
+
+        try {
+
+            $this->sql->execute();
+
+            $this->sql = $this->conexao->prepare(UsuarioSQL::ALTERAR_TECNICO());
+            $i = 1;
+            $this->sql->bindValue($i++, $vo->getTel());
+            $this->sql->bindValue($i++, $vo->getEndereco());
+            $this->sql->bindValue($i++, $vo->getEmail());
+            $this->sql->bindValue($i++, $vo->getIdUser());
+
+            $this->sql->execute();
+
+            $this->conexao->commit();
+            return 1;
+        } catch (Exception $ex) {
+            $this->conexao->rollBack();
+            $vo->setMsgErro($ex->getMessage());
+            parent::GravarErro($vo);
+            return -1;
+        }
+    }
+
     public function ExcluirUsuario(UsuarioVO $vo)
     {
         //é adm, portanto nao precisa de transação porque é so uma tabela
@@ -185,10 +276,13 @@ class UsuarioDAO extends Conexao
         return $this->sql->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function ConsultarCPF($cpf)
+    public function ValidarCPF($cpf, $id)
     {
-        $this->sql = $this->conexao->prepare(UsuarioSQL::CONSULTAR_CPF());
+        $this->sql = $this->conexao->prepare(UsuarioSQL::CONSULTAR_CPF($id));
         $this->sql->bindValue(1, $cpf);
+        if ($id != '') {
+            $this->sql->bindValue(2, $id);
+        }
         $this->sql->execute();
         $ret = $this->sql->fetchAll(PDO::FETCH_ASSOC);
         return $ret[0]['contar'];

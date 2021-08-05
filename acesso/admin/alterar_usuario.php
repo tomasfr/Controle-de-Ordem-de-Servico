@@ -6,6 +6,8 @@ require_once '../../vo/UsuarioVO.php';
 require_once '../../vo/TecnicoVO.php';
 require_once '../../vo/FuncionarioVO.php';
 
+$ctrl = new UsuarioCTRL();
+
 if (
     isset($_GET['tipo']) && is_numeric($_GET['tipo']) &&
     isset($_GET['cod']) && is_numeric($_GET['cod'])
@@ -13,7 +15,6 @@ if (
 
     $tipo = $_GET['tipo'];
     $cod = $_GET['cod'];
-    $ctrl = new UsuarioCTRL();
 
     $dados = $ctrl->DetalharUsuario($cod);
 
@@ -21,19 +22,14 @@ if (
         header('location: consultar_usuario.php');
         exit;
     } else {
-        
+
         //verificar se usuario é um funcionario para carregar setores
-        if ($dados[0]['tipo_usuario'] == 2);
-        $ctrl_set = new SetorCTRL();
-        $setores = $ctrl_set->ConsultarSetor();
+        if ($dados[0]['tipo_usuario'] == 2) {
+            $ctrl_set = new SetorCTRL();
+            $setores = $ctrl_set->ConsultarSetor();
+        }
     }
-} else {
-    header('location: consultar_usuario.php');
-    exit;
-}
-
-
-if (isset($_POST['btnSalvar'])) {
+} else if (isset($_POST['btnSalvar'])) {
 
     $tipo = $_POST['tipo'];
 
@@ -43,11 +39,11 @@ if (isset($_POST['btnSalvar'])) {
 
             $vo = new UsuarioVO();
 
-            $vo->setTipo($tipo);
+            $vo->setIdUser($_POST['cod']);
             $vo->setNomeUser($_POST['nome']);
             $vo->setCpf($_POST['cpf']);
 
-            $ret = $ctrl->CadastrarUserAdm($vo);
+            $ret = $ctrl->AlterarUserAdm($vo);
 
             break;
 
@@ -55,15 +51,16 @@ if (isset($_POST['btnSalvar'])) {
 
             $vo = new FuncionarioVO();
 
-            $vo->setTipo($tipo);
+            $vo->setIdUser($_POST['cod']);
             $vo->setNomeUser($_POST['nome']);
             $vo->setCpf($_POST['cpf']);
-            $vo->setIdSetor($_POST['setor']);
-            $vo->setEmail($_POST['email']);
-            $vo->setTel($_POST['telefone']);
-            $vo->setEndereco($_POST['endereco']);
 
-            $ret = $ctrl->CadastrarUserFuncionario($vo);
+            $vo->setEndereco($_POST['endereco']);
+            $vo->setTel($_POST['telefone']);
+            $vo->setEmail($_POST['email']);
+            $vo->setIdSetor($_POST['setor']);
+
+            $ret = $ctrl->AlterarUserFunc($vo);
 
             break;
 
@@ -71,14 +68,15 @@ if (isset($_POST['btnSalvar'])) {
 
             $vo = new TecnicoVO();
 
-            $vo->setTipo($tipo);
+            $vo->setIdUser($_POST['cod']);
             $vo->setNomeUser($_POST['nome']);
             $vo->setCpf($_POST['cpf']);
-            $vo->setEmail($_POST['email']);
-            $vo->setTel($_POST['telefone']);
-            $vo->setEndereco($_POST['endereco']);
 
-            $ret = $ctrl->CadastrarUserTecnico($vo);
+            $vo->setEndereco($_POST['endereco']);
+            $vo->setTel($_POST['telefone']);
+            $vo->setEmail($_POST['email']);
+
+            $ret = $ctrl->AlterarUserTec($vo);
 
             break;
 
@@ -86,6 +84,12 @@ if (isset($_POST['btnSalvar'])) {
             $ret = 0;
             break;
     }
+
+    header('location: consultar_usuario.php?ret=' . $ret);
+    exit;
+} else {
+    header('location: consultar_usuario.php');
+    exit;
 }
 
 ?>
@@ -146,7 +150,7 @@ if (isset($_POST['btnSalvar'])) {
                             <div class="row">
                                 <div class="form-group col-md-6">
                                     <label>CPF</label>
-                                    <input name="cpf" onchange="ValidarCPF(this.value)" id="cpf" class="form-control num cpf" value="<?= $dados[0]['cpf_usuario'] ?>">
+                                    <input name="cpf" onchange="ValidarCPF(this.value, '<?= $dados[0]['id_usuario'] ?>')" id="cpf" class="form-control num cpf" value="<?= $dados[0]['cpf_usuario'] ?>">
                                     <label id="lblCPFVal" style="color: red;"></label>
                                 </div>
 
@@ -162,7 +166,7 @@ if (isset($_POST['btnSalvar'])) {
                                         <label>Setor</label>
                                         <select name="setor" id="setor" class="form-control">
                                             <option value="">Selecione</option>
-                                            <?php foreach ($setor as $item) { ?>
+                                            <?php foreach ($setores as $item) { ?>
                                                 <option value="<?= $item['id_setor'] ?>" <?= $item['id_setor'] == $dados[0]['id_setor'] ? 'selected' : '' ?>><?= $item['nome_setor'] ?></option>
                                             <?php } ?>
                                         </select>
@@ -190,7 +194,7 @@ if (isset($_POST['btnSalvar'])) {
                                 </div>
                             <?php } ?>
 
-                            <button id="btnSalvar" name="btnSalvar" class="btn btn-success" style="display: none;" onclick="return ValidarTela(3)">Gravar</button>
+                            <button id="btnSalvar" name="btnSalvar" class="btn btn-success" onclick="return ValidarTela(3)">Gravar</button>
 
                         </div>
 

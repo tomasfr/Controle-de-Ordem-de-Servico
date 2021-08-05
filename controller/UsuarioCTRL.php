@@ -9,6 +9,9 @@ define('CadastrarUserFuncionario', 'CadastrarUserFuncionario');
 define('ExcluirUserAdm', 'ExcluirUserAdm');
 define('ExcluirUserFunc', 'ExcluirUserFunc');
 define('ExcluirUserTec', 'ExcluirUserTec');
+define('AlterarUserAdm', 'AlterarUserAdm');
+define('AlterarUserFunc', 'AlterarUserFunc');
+define('AlterarUserTec', 'AlterarUserTec');
 
 
 class UsuarioCTRL
@@ -77,7 +80,7 @@ class UsuarioCTRL
         $vo->setIdUserErro(UtilCTRL::CodigoLogado());
         $vo->setHoraErro(UtilCTRL::HoraAtual());
         $vo->setDataErro(UtilCTRL::DataAtualExibir());
-       
+
         $dao = new UsuarioDAO();
         return $dao->ExcluirUsuario($vo);
     }
@@ -88,10 +91,10 @@ class UsuarioCTRL
         return $dao->FiltrarUsuario($nome, $tipo);
     }
 
-    public function VerificarCPF($cpf)
+    public function VerificarCPF($cpf, $id)
     {
         $dao = new UsuarioDAO();
-        return $dao->ConsultarCPF(UtilCTRL::TirarCaracteresEspeciais($cpf));
+        return $dao->ValidarCPF(UtilCTRL::TirarCaracteresEspeciais($cpf), $id);
     }
 
     public function VerificarEmail($email, $tipo)
@@ -113,17 +116,51 @@ class UsuarioCTRL
         return $dao->DetalharUsuario($idUser);
     }
 
-    public function AlterarDadosFunc(FuncionarioVO $vo)
+    public function AlterarUserAdm(UsuarioVO $vo)
     {
-        if ($vo->getEmail() == '' || $vo->getEndereco() == '' || $vo->getTel() == '') {
+        if ($vo->getNomeUser() == '' || $vo->getCpf() == '')
             return 0;
-        }
+
+        $vo->setFuncaoErro(AlterarUserAdm);
+        $vo->setIdUserErro(UtilCTRL::CodigoLogado());
+        $vo->setDataErro(UtilCTRL::DataAtualExibir());
+        $vo->setHoraErro(UtilCTRL::HoraAtual());
+
+        $dao = new UsuarioDAO();
+        return $dao->AlterarUserAdm($vo);
     }
 
-    public function AlterarDadosTec(TecnicoVO $vo)
+    public function AlterarUserFunc(FuncionarioVO $vo)
     {
-        if ($vo->getEmail() == '' || $vo->getEndereco() == '' || $vo->getTel() == '') {
+        if (
+            $vo->getNomeUser() == '' || $vo->getCpf() == '' || $vo->getEmail() == '' ||
+            $vo->getEndereco() == '' || $vo->getTel() == '' || $vo->getIdSetor() == ''
+        )
             return 0;
-        }
+
+        $vo->setFuncaoErro(AlterarUserFunc);
+        $vo->setIdUserErro(UtilCTRL::CodigoLogado());
+        $vo->setDataErro(UtilCTRL::DataAtualExibir());
+        $vo->setHoraErro(UtilCTRL::HoraAtual());
+
+        $dao = new UsuarioDAO();
+        return $dao->AlterarUserFunc($vo);
+    }
+
+    public function AlterarUserTec(TecnicoVO $vo)
+    {
+        if (
+            $vo->getNomeUser() == '' || $vo->getCpf() == '' || $vo->getEmail() == '' ||
+            $vo->getEndereco() == '' || $vo->getTel() == ''
+        )
+            return 0;
+
+        $vo->setFuncaoErro(AlterarUserTec);
+        $vo->setIdUserErro(UtilCTRL::CodigoLogado());
+        $vo->setDataErro(UtilCTRL::DataAtualExibir());
+        $vo->setHoraErro(UtilCTRL::HoraAtual());
+
+        $dao = new UsuarioDAO();
+        return $dao->AlterarUserTec($vo);
     }
 }

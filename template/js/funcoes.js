@@ -82,11 +82,11 @@ function CarregarDadosExcluir(id, nome) {
     $("#nome_excluir").html(nome);
 }
 
-function ValidarCPF(cpf_digitado) {
-    if (cpf_digitado != "") {
-
+function ValidarCPF(cpf_digitado, id_usuario) {
+    if (cpf_digitado != "") {   
         $.post('ajax/_verificar_cpf.php', {
-            cpf: cpf_digitado
+            cpf: cpf_digitado,
+            id_user: id_usuario
         }, function (ret) {
             if (ret == 1) {
                 $("#lblCPFVal").html('O CPF: ' + cpf_digitado + ' já existe');
