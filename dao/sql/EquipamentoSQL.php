@@ -1,8 +1,10 @@
 <?php
 
-class EquipamentoSQL{
+class EquipamentoSQL
+{
 
-    public static function INSERIR_EQUIPAMENTO(){
+    public static function INSERIR_EQUIPAMENTO()
+    {
 
         $sql = '';
 
@@ -13,10 +15,21 @@ class EquipamentoSQL{
     }
 
 
-    public static function CONSULTAR_EQUIPAMENTO(){
+    public static function FILTRAR_EQUIPAMENTO()
+    {
 
         $sql = '';
-        $sql = 'SELECT id_equip, ident_equip, desc_equip, id_tipoequip, id_modeloequip from tb_equipamento';
+        $sql = 'SELECT eq.id_equipamento, 
+                       ti.nome_tipo, 
+                       mo.nome_modelo, 
+                       eq.ident_equip, 
+                       eq.desc_equip 
+                from tb_equipamento as eq
+            inner join tb_tipoequip as ti
+                    on eq.id_tipoequip = ti.id_tipoequip
+            inner join tb_modeloequip as mo
+                    on eq.id_modeloequip = mo.id_modeloequip
+                where eq.id_tipoequip = ?';
 
         return $sql;
     }

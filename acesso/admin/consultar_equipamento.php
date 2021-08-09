@@ -1,18 +1,22 @@
 <?php
 
+require_once '../../controller/TipoEquipCTRL.php';
 require_once '../../controller/EquipamentoCTRL.php';
-require_once '../../vo/TipoEquipVO.php';
 
-$ctrl = new EquipamentoCTRL();
+$tipo_filtro = '';
+$ctrl_tipo = new TipoEquipCTRL();
 
 if (isset($_POST['btnBuscar'])) {
+    $tipo_filtro = $_POST['tipo'];
 
-    $vo = new TipoEquipVO();
-
-    $vo->setIdTipo($_POST['nome']);
-
-    $ret = $ctrl->ConsultarEquip($vo);
+    $ctrl = new EquipamentoCTRL();
+    $equipamentos = $ctrl->FiltrarEquip($tipo_filtro);
+    if (count($equipamentos) == 0) {
+        $ret = 2;
+    }
 }
+
+$tipos = $ctrl_tipo->ConsultarTipo();
 
 
 ?>
@@ -57,6 +61,7 @@ if (isset($_POST['btnBuscar'])) {
             <section class="content">
 
                 <!-- Default box -->
+
                 <div class="card">
                     <div class="card-header">
                         <h3 class="card-title">Aqui você faz a consulta dos seus equipamentos</h3>
@@ -65,8 +70,11 @@ if (isset($_POST['btnBuscar'])) {
                         <form action="consultar_equipamento.php" method="POST">
                             <div class="form-group">
                                 <label>Pesquisar por Tipo</label>
-                                <select name="nome" id="nome" class="form-control">
+                                <select name="tipo" id="tipo" class="form-control">
                                     <option value="">Selecione</option>
+                                    <?php foreach ($tipos as $item) { ?>
+                                        <option value="<?= $item['id_tipoequip'] ?>" <?= $item['id_tipoequip'] == $tipo_filtro ? 'selected' : '' ?>><?= $item['nome_tipo'] ?></option>
+                                    <?php } ?>
                                 </select>
                             </div>
 
@@ -75,44 +83,49 @@ if (isset($_POST['btnBuscar'])) {
                     </div>
 
                 </div>
-                <!-- /.card -->
-                <div class="row">
-                    <div class="col-12">
-                        <div class="card">
-                            <div class="card-header">
-                                <h3 class="card-title">Equipamentos cadastrados</h3>
-                            </div>
-                            <!-- /.card-header -->
-                            <div class="card-body">
-                                <table class="table table-bordered">
-                                    <thead>
-                                        <tr>
-                                            <th>Tipo</th>
-                                            <th>Modelo</th>
-                                            <th>Identificação</th>
-                                            <th>Descrição</th>
-                                            <th>Ação</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>(tipo)</td>
-                                            <td>(modelo)</td>
-                                            <td>(identificação)</td>
-                                            <td>(descrição)</td>
-                                            <td>
-                                                <a href="#" class="btn btn-warning btn-xs">Alterar</a>
-                                                <a href="#" class="btn btn-danger btn-xs">Excluir</a>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
 
+                <!-- /.card -->
+                <?php if (isset($equipamentos) && count($equipamentos) > 0) { ?>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3 class="card-title">Equipamentos cadastrados</h3>
+                                </div>
+                                <!-- /.card-header -->
+                                <div class="card-body">
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th>Tipo</th>
+                                                <th>Modelo</th>
+                                                <th>Identificação</th>
+                                                <th>Descrição</th>
+                                                <th>Ação</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <?php foreach ($equipamentos as $item) { ?>
+                                                    <td><?= $item['nome_tipo'] ?></td>
+                                                    <td><?= $item['nome_modelo'] ?></td>
+                                                    <td><?= $item['ident_equip'] ?></td>
+                                                    <td><?= $item['desc_equip'] ?></td>
+                                                    <td>
+                                                        <a href="#" class="btn btn-warning btn-xs">Alterar</a>
+                                                        <a href="#" class="btn btn-danger btn-xs">Excluir</a>
+                                                    </td>
+                                                <?php } ?>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                            </div>
+                            <!-- /.card -->
                         </div>
-                        <!-- /.card -->
                     </div>
-                </div>
+                <?php } ?>
             </section>
             <!-- /.content -->
         </div>

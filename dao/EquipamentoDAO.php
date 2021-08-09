@@ -36,4 +36,14 @@ class EquipamentoDAO extends Conexao
             return -1;
         }
     }
+
+    public function FiltrarEquip($tipo_filtro)
+    {
+        $this->sql = $this->conexao->prepare(EquipamentoSQL::FILTRAR_EQUIPAMENTO());
+
+        $this->sql->bindValue(1, $tipo_filtro);
+
+        $this->sql->execute();
+        return $this->sql->fetchAll(PDO::FETCH_ASSOC);
+    }
 }

@@ -4,6 +4,7 @@ require_once 'UtilCTRL.php';
 require_once UtilCTRL::RetornarCaminho() . 'dao/EquipamentoDAO.php';
 
 define('CadastrarEquip', 'CadastrarEquip');
+define('FiltrarEquip', 'FiltrarEquip');
 
 class EquipamentoCTRL
 {
@@ -23,6 +24,12 @@ class EquipamentoCTRL
 
         $dao = new EquipamentoDAO();
         return $dao->CadastrarEquip($vo);
+    }
+
+    public function FiltrarEquip($tipo_filtro)
+    {
+        $dao = new EquipamentoDAO();
+        return $dao->FiltrarEquip($tipo_filtro);
     }
 
     public function ConsultarEquip(TipoEquipVO $vo)
