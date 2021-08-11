@@ -54,17 +54,10 @@ function ValidarTela(n_tela) {
 
             break;
 
-        case 4: //Novo Chamado
+        case 4: //Tela Filtrar Equipamento
 
-            if ($("#equip").val().trim() == '' || $("#desc").val().trim() == '')
-                ret = false;
-
-            break;
-
-        case 5: //Meus Dados
-
-            if ($("#email").val().trim() == '' || $("#tel").val().trim() == '' || $("#endereco").val().trim() == '')
-                ret = false;
+        if ($("#tipo").val().trim() == '') 
+            ret = false;
 
             break;
 

@@ -13,6 +13,17 @@ class EquipamentoSQL
 
         return $sql;
     }
+    
+    public static function ALTERAR_EQUIPAMENTO()
+    {
+
+        $sql = '';
+
+        $sql = 'UPDATE tb_equipamento set ident_equip = ?, desc_equip = ?, id_tipoequip = ?, id_modeloequip = ?
+                where id_equipamento = ?';
+
+        return $sql;
+    }
 
 
     public static function FILTRAR_EQUIPAMENTO()
@@ -30,6 +41,21 @@ class EquipamentoSQL
             inner join tb_modeloequip as mo
                     on eq.id_modeloequip = mo.id_modeloequip
                 where eq.id_tipoequip = ?';
+
+        return $sql;
+    }
+
+    public static function DETALHAR_EQUIPAMENTO()
+    {
+
+        $sql = '';
+        $sql = 'SELECT eq.id_equipamento, 
+                       eq.id_tipoequip, 
+                       eq.id_modeloequip, 
+                       eq.ident_equip, 
+                       eq.desc_equip 
+                from tb_equipamento as eq
+                where eq.id_equipamento = ?';
 
         return $sql;
     }

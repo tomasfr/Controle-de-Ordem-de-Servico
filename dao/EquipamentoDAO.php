@@ -36,12 +36,42 @@ class EquipamentoDAO extends Conexao
             return -1;
         }
     }
+   
+    public function AlterarEquip(EquipamentoVO $vo)
+    {
+        $this->sql = $this->conexao->prepare(EquipamentoSQL::ALTERAR_EQUIPAMENTO());
+        $i = 1;
+        $this->sql->bindValue($i++, $vo->getIdentEquip());
+        $this->sql->bindValue($i++, $vo->getDescEquip());
+        $this->sql->bindValue($i++, $vo->getIdTipoEquip());
+        $this->sql->bindValue($i++, $vo->getIdModeloEquip());
+        $this->sql->bindValue($i++, $vo->getIdEquip());
+
+        try {
+            $this->sql->execute();
+            return 1;
+        } catch (Exception $ex) {
+            $vo->setMsgErro($ex->getMessage());
+            parent::GravarErro($vo);
+            return -1;
+        }
+    }
 
     public function FiltrarEquip($tipo_filtro)
     {
         $this->sql = $this->conexao->prepare(EquipamentoSQL::FILTRAR_EQUIPAMENTO());
 
         $this->sql->bindValue(1, $tipo_filtro);
+
+        $this->sql->execute();
+        return $this->sql->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function DetalharEquip($id)
+    {
+        $this->sql = $this->conexao->prepare(EquipamentoSQL::DETALHAR_EQUIPAMENTO());
+
+        $this->sql->bindValue(1, $id);
 
         $this->sql->execute();
         return $this->sql->fetchAll(PDO::FETCH_ASSOC);

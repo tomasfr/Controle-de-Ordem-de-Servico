@@ -6,11 +6,18 @@ require_once '../../controller/EquipamentoCTRL.php';
 $tipo_filtro = '';
 $ctrl_tipo = new TipoEquipCTRL();
 
+if (isset($_GET['tipo']) && is_numeric($_GET['tipo'])) {
+
+    $ctrl_equi = new EquipamentoCTRL();
+    $tipo_filtro = $_GET['tipo'];
+    $equipamentos = $ctrl_equi->FiltrarEquip($tipo_filtro);
+}
+
 if (isset($_POST['btnBuscar'])) {
     $tipo_filtro = $_POST['tipo'];
 
-    $ctrl = new EquipamentoCTRL();
-    $equipamentos = $ctrl->FiltrarEquip($tipo_filtro);
+    $ctrl_equi = new EquipamentoCTRL();
+    $equipamentos = $ctrl_equi->FiltrarEquip($tipo_filtro);
     if (count($equipamentos) == 0) {
         $ret = 2;
     }
@@ -78,7 +85,7 @@ $tipos = $ctrl_tipo->ConsultarTipo();
                                 </select>
                             </div>
 
-                            <button name="btnBuscar" onclick="return ValidarTela(1)" class="btn bg-gradient-primary">Buscar</button>
+                            <button name="btnBuscar" onclick="return ValidarTela(4)" class="btn bg-gradient-primary">Buscar</button>
                         </form>
                     </div>
 
@@ -105,18 +112,18 @@ $tipos = $ctrl_tipo->ConsultarTipo();
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <?php foreach ($equipamentos as $item) { ?>
+                                            <?php foreach ($equipamentos as $item) { ?>
+                                                <tr>
                                                     <td><?= $item['nome_tipo'] ?></td>
                                                     <td><?= $item['nome_modelo'] ?></td>
                                                     <td><?= $item['ident_equip'] ?></td>
                                                     <td><?= $item['desc_equip'] ?></td>
                                                     <td>
-                                                        <a href="#" class="btn btn-warning btn-xs">Alterar</a>
+                                                        <a href="equipamento.php?cod=<?= $item['id_equipamento'] ?>" class="btn btn-warning btn-xs">Alterar</a>
                                                         <a href="#" class="btn btn-danger btn-xs">Excluir</a>
                                                     </td>
-                                                <?php } ?>
-                                            </tr>
+                                                </tr>
+                                            <?php } ?>
                                         </tbody>
                                     </table>
                                 </div>

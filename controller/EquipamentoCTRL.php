@@ -9,7 +9,7 @@ define('FiltrarEquip', 'FiltrarEquip');
 class EquipamentoCTRL
 {
 
-    public function CadastrarEquip(EquipamentoVO $vo)
+    public function GravarEquip(EquipamentoVO $vo)
     {
         if (
             $vo->getIdentEquip() == '' || $vo->getDescEquip() == '' ||
@@ -23,13 +23,19 @@ class EquipamentoCTRL
         $vo->setHoraErro(UtilCTRL::HoraAtual());
 
         $dao = new EquipamentoDAO();
-        return $dao->CadastrarEquip($vo);
+        return $vo->getIdEquip() != '' ? $dao->AlterarEquip($vo) : $dao->CadastrarEquip($vo);
     }
 
     public function FiltrarEquip($tipo_filtro)
     {
         $dao = new EquipamentoDAO();
         return $dao->FiltrarEquip($tipo_filtro);
+    }
+
+    public function DetalharEquip($id)
+    {
+        $dao = new EquipamentoDAO();
+        return $dao->DetalharEquip($id);
     }
 
     public function ConsultarEquip(TipoEquipVO $vo)
