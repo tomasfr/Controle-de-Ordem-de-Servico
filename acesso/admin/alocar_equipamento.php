@@ -1,3 +1,26 @@
+<?php
+
+require_once '../../controller/EquipamentoCTRL.php';
+require_once '../../controller/SetorCTRL.php';
+require_once '../../vo/AlocarEquipVO.php';
+
+$ctrl_eqs = new EquipamentoCTRL();
+$ctrl_set = new SetorCTRL();
+
+if (isset($_POST['btnSalvar'])) {
+    $vo = new AlocarEquipVO();
+
+    $vo->setIdSetor($_POST['setor']);
+    $vo->setIdEquip($_POST['tipo']);
+
+    $ret = $ctrl_eqs->AlocarEquipamento($vo);
+}
+
+$eqs = $ctrl_eqs->FiltrarEquipNaoAlocados();
+$sets = $ctrl_set->ConsultarSetor();
+
+?>
+
 <!DOCTYPE html>
 <html>
 
@@ -42,41 +65,51 @@
                     <div class="card-header">
                         <h3 class="card-title">Aqui você aloca um equipamento ao setor específico</h3>
                     </div>
-                    <div class="card-body">
-                            <div class="form-group">
-                                <label>Equipamento</label>
-                                <select name="tipo" id="tipo" class="form-control">
-                                    <option value="">Selecione</option>
-                                </select>
+                    <form action="alocar_equipamento.php" method="post">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="form-group col-md-6">
+                                    <label>Setor</label>
+                                    <select name="setor" id="setor" class="form-control">
+                                        <option value="">Selecione</option>
+                                        <?php foreach ($sets as $item) { ?>
+                                            <option value="<?= $item['id_setor'] ?>"><?= $item['nome_setor'] ?></option>
+                                        <?php } ?>
+                                    </select>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label>Equipamento</label>
+                                    <select name="tipo" id="tipo" class="form-control">
+                                        <option value="">Selecione</option>
+                                        <?php foreach ($eqs as $item) { ?>
+                                            <option value="<?= $item['id_equipamento'] ?>"><?= $item['nome_tipo'] . ' / ' .  $item['ident_equip'] . ' / ' . $item['desc_equip'] ?></option>
+                                        <?php } ?>
+                                    </select>
+                                </div>
                             </div>
-                            <div class="form-group">
-                                <label>Setor</label>
-                                <select name="modelo" id="modelo" class="form-control">
-                                    <option value="">Selecione</option>
-                                </select>
-                        </div>
-
-                        <button name="btnSalvar" class="btn btn-success">Gravar</button>
-
-                    </div>
-
+                            <center>
+                                <button name="btnSalvar" class="btn btn-success">Alocar</button>
+                            </center>
+                    </form>
                 </div>
-                <!-- /.card -->
 
-            </section>
-            <!-- /.content -->
         </div>
-        <!-- /.content-wrapper -->
+        <!-- /.card -->
 
-        <?php
-        include_once '../../template/_footer.php';
-        ?>
+        </section>
+        <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+
+    <?php
+    include_once '../../template/_footer.php';
+    ?>
     </div>
     <!-- ./wrapper -->
 
     <?php
     include_once '../../template/_scripts.php';
-    ?>
+    include_once '../../template/_msg.php'; ?>
 </body>
 
 </html>

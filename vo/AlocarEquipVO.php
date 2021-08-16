@@ -1,6 +1,9 @@
 <?php
 
-class AlocarEquipVO{
+require_once 'SistemaVO.php';
+
+class AlocarEquipVO extends SistemaVO
+{
 
     private $idAlocarEquip;
     private $sitAlocar;
@@ -9,46 +12,57 @@ class AlocarEquipVO{
     private $idEquipamento;
     private $idSetor;
 
-    public function setIdAlocarEquip($id){
+    public function setIdAlocarEquip($id)
+    {
         $this->idAlocarEquip = $id;
     }
-    public function getIdAlocarEquip(){
+    public function getIdAlocarEquip()
+    {
         return $this->idAlocarEquip;
     }
-    
-    public function setSitAlocar($sitalocar){
+
+    public function setSitAlocar($sitalocar)
+    {
         $this->sitAlocar = $sitalocar;
     }
-    public function getSitAlocar(){
+    public function getSitAlocar()
+    {
         return $this->sitAlocar;
     }
-    
-    public function setDataAlocar($dataalocar){
+
+    public function setDataAlocar($dataalocar)
+    {
         $this->dataAlocar = $dataalocar;
     }
-    public function getDataAlocar(){
+    public function getDataAlocar()
+    {
         return $this->dataAlocar;
     }
-    
-    public function setDataRemover($dataremover){
+
+    public function setDataRemover($dataremover)
+    {
         $this->dataRemover = $dataremover;
     }
-    public function getDataRemover(){
+    public function getDataRemover()
+    {
         return $this->dataRemover;
     }
-    
-    public function setIdEquip($idequip){
+
+    public function setIdEquip($idequip)
+    {
         $this->idEquipamento = $idequip;
     }
-    public function getIdEquip(){
+    public function getIdEquip()
+    {
         return $this->idEquipamento;
     }
-    
-    public function setIdSetor($idsetor){
+
+    public function setIdSetor($idsetor)
+    {
         $this->idSetor = $idsetor;
     }
-    public function getIdSetor(){
+    public function getIdSetor()
+    {
         return $this->idSetor;
     }
-
 }

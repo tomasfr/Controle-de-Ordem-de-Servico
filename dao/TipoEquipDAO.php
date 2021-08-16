@@ -68,12 +68,11 @@ class TipoEquipDAO extends Conexao
         $this->sql = $this->conexao->prepare(TipoEquipSQL::EXCLUIR_TIPO());
         $this->sql->bindValue(1, $vo->getIdTipo());
 
-        try{
+        try {
 
             $this->sql->execute();
             return 1;
-
-        }catch(Exception $ex){
+        } catch (Exception $ex) {
 
             $vo->setMsgErro($ex->getMessage());
             parent::GravarErro($vo);

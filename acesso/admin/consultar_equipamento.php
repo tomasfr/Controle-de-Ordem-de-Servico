@@ -2,6 +2,7 @@
 
 require_once '../../controller/TipoEquipCTRL.php';
 require_once '../../controller/EquipamentoCTRL.php';
+require_once '../../vo/EquipamentoVO.php';
 
 $tipo_filtro = '';
 $ctrl_tipo = new TipoEquipCTRL();
@@ -21,6 +22,17 @@ if (isset($_POST['btnBuscar'])) {
     if (count($equipamentos) == 0) {
         $ret = 2;
     }
+} else if (isset($_POST['btnExcluir'])) {
+
+    $ctrl_equi = new EquipamentoCTRL();
+
+    $vo = new EquipamentoVO();
+    $vo->setIdEquip($_POST['id_excluir']);
+
+    $ret = $ctrl_equi->ExcluirEquip($vo);
+
+    $tipo_filtro = $_POST['tipo_filtro'];
+    $equipamentos = $ctrl_equi->FiltrarEquip($tipo_filtro);
 }
 
 $tipos = $ctrl_tipo->ConsultarTipo();
@@ -120,12 +132,18 @@ $tipos = $ctrl_tipo->ConsultarTipo();
                                                     <td><?= $item['desc_equip'] ?></td>
                                                     <td>
                                                         <a href="equipamento.php?cod=<?= $item['id_equipamento'] ?>" class="btn btn-warning btn-xs">Alterar</a>
-                                                        <a href="#" class="btn btn-danger btn-xs">Excluir</a>
+                                                        <a href="#" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#modal-excluir" onclick="CarregarDadosExcluir('<?= $item['id_equipamento'] ?>','<?= $item['ident_equip'] . ' / ' . $item['desc_equip'] ?>')">Excluir</a>
                                                     </td>
                                                 </tr>
                                             <?php } ?>
                                         </tbody>
                                     </table>
+                                    <form action="consultar_equipamento.php" method="POST">
+                                        <input type="hidden" name="tipo_filtro" value="<?= $tipo_filtro ?>">
+                                        <?php
+                                        include_once 'modal/_modal_excluir.php';
+                                        ?>
+                                    </form>
                                 </div>
 
                             </div>
