@@ -6,6 +6,7 @@ require_once UtilCTRL::RetornarCaminho() . 'dao/EquipamentoDAO.php';
 define('CadastrarEquip', 'CadastrarEquip');
 define('ExcluirEquip', 'ExcluirEquip');
 define('AlocarEquipamento', 'AlocarEquipamento');
+define('RemoverEquipamento', 'RemoverEquipamento');
 
 class EquipamentoCTRL
 {
@@ -63,20 +64,6 @@ class EquipamentoCTRL
         return $dao->DetalharEquip($id);
     }
 
-    public function ConsultarEquip(TipoEquipVO $vo)
-    {
-        if ($vo->getIdTipo() == '') {
-            return 0;
-        }
-    }
-
-    public function RemoverEquip(SetorVO $vo)
-    {
-        if ($vo->getNomeSetor() == '') {
-            return 0;
-        }
-    }
-
     public function ExcluirEquip(EquipamentoVO $vo)
     {
         $vo->setFuncaoErro(ExcluirEquip);
@@ -86,5 +73,26 @@ class EquipamentoCTRL
 
         $dao = new EquipamentoDAO();
         return $dao->ExcluirEquip($vo);
+    }
+
+    public function DetalharEquipamentoSetor($idSetor)
+    {
+        $dao = new EquipamentoDAO();
+        return $dao->DetalharEquipamentoSetor($idSetor);
+    }
+
+    public function RemoverEquipamentoSetor(AlocarEquipVO $vo)
+    {
+
+        $vo->setSitAlocar(2);
+        $vo->setDataRemover(UtilCTRL::DataAtual());
+
+        $vo->setFuncaoErro(RemoverEquipamento);
+        $vo->setIdUserErro(UtilCTRL::CodigoLogado());
+        $vo->setDataErro(UtilCTRL::DataAtualExibir());
+        $vo->setHoraErro(UtilCTRL::HoraAtual());
+
+        $dao = new EquipamentoDAO();
+        return $dao->RemoverEquipamentoSetor($vo);
     }
 }

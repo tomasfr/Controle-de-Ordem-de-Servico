@@ -29,12 +29,15 @@ class EquipamentoSQL
 
         $sql = '';
 
-        $sql = 'UPDATE tb_equipamento set ident_equip = ?, desc_equip = ?, id_tipoequip = ?, id_modeloequip = ?
-                where id_equipamento = ?';
+        $sql = 'UPDATE tb_equipamento set 
+                            ident_equip = ?, 
+                            desc_equip = ?, 
+                            id_tipoequip = ?, 
+                            id_modeloequip = ?
+                        where id_equipamento = ?';
 
         return $sql;
     }
-
 
     public static function FILTRAR_EQUIPAMENTO()
     {
@@ -72,6 +75,38 @@ class EquipamentoSQL
                 where eq.id_equipamento not in (select al.id_equipamento
                                                     from tb_alocarequip as al
                                                     where al.sit_alocar != 2)';
+
+        return $sql;
+    }
+
+    public static function EQUIPAMENTOS_ALOCADOS_SETOR()
+    {
+        $sql = '';
+        $sql = 'SELECT 
+                       al.id_alocarequip,
+                       ti.nome_tipo, 
+                       mo.nome_modelo,
+                       eq.ident_equip, 
+                       eq.desc_equip
+                   from tb_alocarequip as al
+                inner join tb_equipamento as eq
+                    on al.id_equipamento = eq.id_equipamento
+                inner join tb_tipoequip as ti
+                    on eq.id_tipoequip = ti.id_tipoequip
+                inner join tb_modeloequip as mo
+                    on eq.id_modeloequip = mo.id_modeloequip
+                where al.id_setor = ? and al.sit_alocar = 1';
+
+        return $sql;
+    }
+
+    public static function REMOVER_EQUIPAMENTO_SETOR()
+    {
+        $sql = '';
+        $sql = 'UPDATE tb_alocarequip 
+                    set sit_alocar = ?,
+                        data_remover = ?
+                    where id_alocarequip = ?';
 
         return $sql;
     }

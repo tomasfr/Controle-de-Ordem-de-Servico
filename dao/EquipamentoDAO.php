@@ -119,4 +119,32 @@ class EquipamentoDAO extends Conexao
         $this->sql->execute();
         return $this->sql->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    public function DetalharEquipamentoSetor($idSetor)
+    {
+        $this->sql = $this->conexao->prepare(EquipamentoSQL::EQUIPAMENTOS_ALOCADOS_SETOR());
+
+        $this->sql->bindValue(1, $idSetor);
+        $this->sql->execute();
+        return $this->sql->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function RemoverEquipamentoSetor(AlocarEquipVO $vo)
+    {
+        $this->sql = $this->conexao->prepare(EquipamentoSQL::REMOVER_EQUIPAMENTO_SETOR());
+        $i = 1;
+        $this->sql->bindValue($i++, $vo->getSitAlocar());
+        $this->sql->bindValue($i++, $vo->getDataRemover());
+        $this->sql->bindValue($i++, $vo->getIdAlocarEquip());
+
+        try {
+
+            $this->sql->execute();
+            return 1;
+        } catch (Exception $ex) {
+            $vo->setMsgErro($ex->getMessage());
+            parent::GravarErro($vo);
+            return -1;
+        }
+    }
 }

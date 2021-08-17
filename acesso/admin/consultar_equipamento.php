@@ -25,7 +25,7 @@ if (isset($_POST['btnBuscar'])) {
 } else if (isset($_POST['btnExcluir'])) {
 
     $ctrl_equi = new EquipamentoCTRL();
-
+ 
     $vo = new EquipamentoVO();
     $vo->setIdEquip($_POST['id_excluir']);
 

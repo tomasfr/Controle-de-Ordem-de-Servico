@@ -69,20 +69,20 @@ $sets = $ctrl_set->ConsultarSetor();
                         <div class="card-body">
                             <div class="row">
                                 <div class="form-group col-md-6">
+                                    <label>Equipamento</label>
+                                    <select name="tipo" id="tipo" class="form-control">
+                                        <option value="">Selecione</option>
+                                        <?php foreach ($eqs as $item) { ?>
+                                            <option value="<?= $item['id_equipamento'] ?>"><?= $item['nome_tipo'] . ' / ' .  $item['desc_equip'] . ' / ' . $item['ident_equip'] ?></option>
+                                        <?php } ?>
+                                    </select>
+                                </div>
+                                <div class="form-group col-md-6">
                                     <label>Setor</label>
                                     <select name="setor" id="setor" class="form-control">
                                         <option value="">Selecione</option>
                                         <?php foreach ($sets as $item) { ?>
                                             <option value="<?= $item['id_setor'] ?>"><?= $item['nome_setor'] ?></option>
-                                        <?php } ?>
-                                    </select>
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <label>Equipamento</label>
-                                    <select name="tipo" id="tipo" class="form-control">
-                                        <option value="">Selecione</option>
-                                        <?php foreach ($eqs as $item) { ?>
-                                            <option value="<?= $item['id_equipamento'] ?>"><?= $item['nome_tipo'] . ' / ' .  $item['ident_equip'] . ' / ' . $item['desc_equip'] ?></option>
                                         <?php } ?>
                                     </select>
                                 </div>

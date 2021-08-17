@@ -1,21 +1,34 @@
 <?php
 
+require_once '../../controller/SetorCTRL.php';
 require_once '../../controller/EquipamentoCTRL.php';
-require_once '../../vo/SetorVO.php';
+require_once '../../vo/AlocarEquipVO.php';
 
-$ctrl = new EquipamentoCTRL();
+$ctrl_sets = new SetorCTRL();
+$idSetor = '';
 
-if(isset($_POST['btnBuscar'])){
+if (isset($_POST['btnExcluir'])) {
 
-    $vo = new SetorVO();
+    $vo = new AlocarEquipVO();
+    $ctrl_eq = new EquipamentoCTRL();
 
-    $vo->setIdSetor($_POST['nome']);
+    $vo->setIdAlocarEquip($_POST['id_excluir']);
 
-    $ret = $ctrl->RemoverEquip($vo);
+    $ret = $ctrl_eq->RemoverEquipamentoSetor($vo);
+} else if (isset($_POST['btnBuscar'])) {
+
+    $ctrl_eq = new EquipamentoCTRL();
+    $idSetor = $_POST['idSetor'];
+    $eqs = $ctrl_eq->DetalharEquipamentoSetor($idSetor);
+
+    if (count($eqs) == 0) {
+        $ret = 2;
+    }
 }
 
-?>
+$setores =  $ctrl_sets->ConsultarSetor();
 
+?>
 
 <!DOCTYPE html>
 <html>
@@ -65,48 +78,63 @@ if(isset($_POST['btnBuscar'])){
                         <form action="remover_equipamento.php" method="POST">
                             <div class="form-group">
                                 <label>Setor</label>
-                                <select name="nome" id="nome" class="form-control">
+                                <select name="idSetor" id="idSetor" class="form-control">
                                     <option value="">Selecione</option>
+                                    <?php foreach ($setores as $item) { ?>
+                                        <option value="<?= $item['id_setor'] ?>" <?= $item['id_setor'] == $idSetor ? 'selected' : '' ?>><?= $item['nome_setor'] ?></option>
+                                    <?php } ?>
                                 </select>
                             </div>
 
-                            <button name="btnBuscar" onclick="return ValidarTela(1)" class="btn bg-gradient-primary">Buscar</button>
+                            <button name="btnBuscar" onclick="return ValidarTela(5)" class="btn bg-gradient-primary">Buscar</button>
 
                         </form>
                     </div>
 
                 </div>
                 <!-- /.card -->
-                <div class="row">
-                    <div class="col-12">
-                        <div class="card">
-                            <div class="card-header">
-                                <h3 class="card-title">Lista de Equipamentos desse setor</h3>
+                <?php if (isset($eqs) && count($eqs) > 0) { ?>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3 class="card-title">Lista de Equipamentos desse setor</h3>
 
+                                </div>
+                                <!-- /.card-header -->
+                                <div class="card-body">
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th>Equipamento</th>
+                                                <th>Ação</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php foreach ($eqs as $item) { ?>
+                                                <tr>
+                                                    <td><?= $item['nome_tipo'] . ' / ' . $item['nome_modelo'] . ' / ' . $item['ident_equip'] ?></td>
+                                                    <td>
+                                                        <a href="#" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#modal-excluir" onclick="CarregarDadosExcluir('<?= $item['id_alocarequip'] ?>','<?= $item['nome_tipo'] . ' / ' . $item['nome_modelo'] . ' / ' . $item['ident_equip'] ?>')">Remover</a>
+                                                    </td>
+                                                </tr>
+                                            <?php } ?>
+                                        </tbody>
+                                    </table>
+
+                                    <form action="remover_equipamento.php" method="POST">
+                                        <?php
+                                        include_once 'modal/_modal_excluir.php';
+                                        ?>
+                                    </form>
+
+                                </div>
+                                <!-- /.card-body -->
                             </div>
-                            <!-- /.card-header -->
-                            <div class="card-body">
-                                <table class="table table-bordered">
-                                    <thead>
-                                        <tr>
-                                            <th>Equipamento</th>
-                                            <th>Ação</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>(equipamento)</td>
-                                            <td>
-                                                <a href="#" class="btn btn-danger btn-xs">Remover</a>
-                                            </td>
-                                    </tbody>
-                                </table>
-                            </div>
-                            <!-- /.card-body -->
+                            <!-- /.card -->
                         </div>
-                        <!-- /.card -->
                     </div>
-                </div>
+                <?php  } ?>
 
             </section>
             <!-- /.content -->

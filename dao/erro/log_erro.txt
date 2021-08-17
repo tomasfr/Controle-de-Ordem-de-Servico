@@ -46,3 +46,27 @@
 - CÓDIGO DO LOGADO: 1
 - FUNÇÃO DO ERRO: CadastrarUserFuncionario
 - MENSAGEM DE ERRO: SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens
+--------------------------------------------------------
+- DATA DO ERRO: 17/08/2021
+- HORÁRIO DO ERRO: 14:59
+- CÓDIGO DO LOGADO: 1
+- FUNÇÃO DO ERRO: RemoverEquipamento
+- MENSAGEM DE ERRO: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'update tb_alocarequip set
+                                sit_alocar = '2',
+  ' at line 1
+--------------------------------------------------------
+- DATA DO ERRO: 17/08/2021
+- HORÁRIO DO ERRO: 14:59
+- CÓDIGO DO LOGADO: 1
+- FUNÇÃO DO ERRO: RemoverEquipamento
+- MENSAGEM DE ERRO: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'update tb_alocarequip set
+                                sit_alocar = '2',
+  ' at line 1
+--------------------------------------------------------
+- DATA DO ERRO: 17/08/2021
+- HORÁRIO DO ERRO: 15:06
+- CÓDIGO DO LOGADO: 1
+- FUNÇÃO DO ERRO: RemoverEquipamento
+- MENSAGEM DE ERRO: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'update tb_alocarequip set
+                                sit_alocar = '2',
+  ' at line 1

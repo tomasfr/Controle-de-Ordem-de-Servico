@@ -56,8 +56,14 @@ function ValidarTela(n_tela) {
 
         case 4: //Tela Filtrar Equipamento
 
-        if ($("#tipo").val().trim() == '') 
-            ret = false;
+            if ($("#tipo").val().trim() == '')
+                ret = false;
+
+            break;
+        case 5: //Tela Remover Equipamento
+
+            if ($("#idSetor").val().trim() == '')
+                ret = false;
 
             break;
 
