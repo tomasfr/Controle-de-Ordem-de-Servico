@@ -24,6 +24,14 @@ function RetornarMsg(num) {
             msg = "Não foi encontrado nenhum registro para ser exibido";
             break;
 
+        case 3:
+            msg = "Login não encontrado";
+            break;
+
+        case 4:
+            msg = "Senha inválida";
+            break;
+
     }
 
     return msg;

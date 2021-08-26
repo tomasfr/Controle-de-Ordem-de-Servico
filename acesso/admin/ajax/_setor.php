@@ -11,7 +11,7 @@ if (isset($_POST['nome']) && $_POST['acao'] == 1) {
     $vo->setNomeSetor($_POST['nome']);
 
     $ret = $ctrl->CadastrarSetor($vo);
-
+    
     echo $ret;
 } else if ($_POST['acao'] == 2) {
 

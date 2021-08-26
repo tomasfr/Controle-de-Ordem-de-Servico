@@ -184,4 +184,20 @@ class UsuarioSQL
 
         return $sql;
     }
+
+    public static function VALIDAR_LOGIN()
+    {
+        $sql = '';
+        $sql = 'SELECT user.id_usuario, 
+                       user.senha_usuario,
+                       user.nome_usuario, 
+                       user.tipo_usuario, 
+                       fu.id_setor
+                    from tb_usuario as user
+                left join tb_funcionario as fu
+                    on user.id_usuario = fu.id_usuario_func
+                where user.cpf_usuario = ? and user.status_usuario = 1';
+
+        return $sql;
+    }
 }

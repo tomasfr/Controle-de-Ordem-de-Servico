@@ -37,5 +37,17 @@ if (isset($ret)) {
                      toastr.info(RetornarMsg(2))
                  </script>';
             break;
+
+        case 3:
+            echo '<script>
+                     toastr.info(RetornarMsg(3))
+                 </script>';
+            break;
+
+        case 4:
+            echo '<script>
+                     toastr.info(RetornarMsg(4))
+                 </script>';
+            break;
     }
 }

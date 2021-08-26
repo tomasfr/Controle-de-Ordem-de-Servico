@@ -25,21 +25,76 @@ class UtilCTRL
         return $nome;
     }
 
+    public static function IniciarSessao()
+    {
+        if (!isset($_SESSION))
+            session_start();
+    }
+
+    public static function CriarSessao($idUser, $nome,  $tipo, $idSetor)
+    {
+        self::IniciarSessao();
+        $_SESSION['codUser'] = $idUser;
+        $_SESSION['nome'] = $nome;
+        $_SESSION['tipo'] = $tipo;
+        $_SESSION['setor'] = $idSetor;
+    }
+
     public static function CodigoLogado()
     {
-        return 1;
+        self::IniciarSessao();
+        return $_SESSION['codUser'];
+    }
+
+    public static function NomeLogado()
+    {
+        self::IniciarSessao();
+        return $_SESSION['nome'];
     }
 
     public static function TipoLogado()
     {
-        return 1;
+        self::IniciarSessao();
+        return $_SESSION['tipo'];
     }
 
     public static function SetorLogado()
     {
-        return 1;
+        self::IniciarSessao();
+        return $_SESSION['setor'];
     }
 
+    public static function Deslogar()
+    {
+        self::IniciarSessao();
+        unset($_SESSION['codUser']);
+        unset($_SESSION['nome']);
+        unset($_SESSION['tipo']);
+        unset($_SESSION['setor']);
+
+        self::PaginaLogar();
+    }
+
+    public static function VerificarLogado()
+    {
+        self::IniciarSessao();
+
+        if (!isset($_SESSION['codUser'])) {
+            self::PaginaLogar();
+        }
+    }
+
+    public static function ValidarTipoLogado($tipo)
+    {
+        if (self::TipoLogado() != $tipo);
+        self::Deslogar();
+    }
+
+    private static function PaginaLogar()
+    {
+        header('location: http://localhost/controleos/acesso/login/acesso.php');
+        exit;
+    }
 
     private static function SetarFusoHorario()
     {

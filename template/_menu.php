@@ -1,5 +1,11 @@
 <?php
 
+require_once $_SERVER['DOCUMENT_ROOT'] . '/ControleOS/controller/utilCTRL.php';
+
+if (isset($_GET['close']) && $_GET['close'] == 1) {
+    UtilCTRL::Deslogar();
+}
+
 $tipo = 1;
 
 ?>
@@ -224,7 +230,7 @@ $tipo = 1;
 
                 <?php } ?>
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="http://localhost/controleos/template/_menu.php?close=1" class="nav-link">
                         <i class="nav-icon fas fa-sign-out-alt"></i>
                         <p>
                             Sair

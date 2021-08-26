@@ -17,6 +17,46 @@ define('AlterarUserTec', 'AlterarUserTec');
 class UsuarioCTRL
 {
 
+    public function ValidarLogin($senha, $login)
+    {
+        if (trim(ltrim($login)) == '' || trim(ltrim($senha)) == '')
+            return 0;
+
+        $dao = new UsuarioDAO();
+
+        $user = $dao->ValidarLogin(UtilCTRL::TirarCaracteresEspeciais($login));
+
+        if (count($user) == 0) {
+            return 3;
+        } else if (password_verify($senha, $user[0]['senha_usuario'])) {
+
+
+            UtilCTRL::CriarSessao(
+                $user[0]['id_usuario'],
+                $user[0]['nome_usuario'],
+                $user[0]['tipo_usuario'],
+                $user[0]['id_setor']
+            );
+
+            switch ($user[0]['tipo_usuario']) {
+
+                case 1: //Adm
+                    header('location: http://localhost/controleos/acesso/admin/novo_usuario.php');
+                    break;
+                case 2: //Funcionario
+                    header('location: http://localhost/controleos/acesso/funcionario/novo_chamado.php');
+                    break;
+                case 3: //Tecnico
+                    header('location: http://localhost/controleos/acesso/tecnico/consultar_chamados.php');
+                    break;
+            }
+
+            exit;
+        } else {
+            return 4;
+        }
+    }
+
     public function CadastrarUserAdm(UsuarioVO $vo)
     {
         if ($vo->getNomeUser() == '' || $vo->getTipo() == '' || $vo->getCpf() == '')

@@ -70,3 +70,9 @@
 - MENSAGEM DE ERRO: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'update tb_alocarequip set
                                 sit_alocar = '2',
   ' at line 1
+--------------------------------------------------------
+- DATA DO ERRO: 23/08/2021
+- HORÁRIO DO ERRO: 00:09
+- CÓDIGO DO LOGADO: 1
+- FUNÇÃO DO ERRO: CadastrarCaixa
+- MENSAGEM DE ERRO: SQLSTATE[23000]: Integrity constraint violation: 1452 Cannot add or update a child row: a foreign key constraint fails (`db_veronica_beach_club`.`tb_caixa`, CONSTRAINT `fk_tb_caixa_tb_usuario` FOREIGN KEY (`id_usuario`) REFERENCES `tb_usuario` (`id_usuario`) ON DELETE NO ACTION ON UPDATE NO ACTION)

@@ -60,9 +60,17 @@ function ValidarTela(n_tela) {
                 ret = false;
 
             break;
+
         case 5: //Tela Remover Equipamento
 
             if ($("#idSetor").val().trim() == '')
+                ret = false;
+
+            break;
+
+        case 6: //Tela Remover Equipamento
+
+            if ($("#cpf").val().trim() == '' || $("#senha").val().trim() == '')
                 ret = false;
 
             break;

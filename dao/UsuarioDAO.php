@@ -276,6 +276,14 @@ class UsuarioDAO extends Conexao
         return $this->sql->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public function ValidarLogin($login)
+    {
+        $this->sql = $this->conexao->prepare(UsuarioSQL::VALIDAR_LOGIN());
+        $this->sql->bindValue(1, $login);
+        $this->sql->execute();
+        return $this->sql->fetchAll(PDO::FETCH_ASSOC);
+    }
+
     public function ValidarCPF($cpf, $id)
     {
         $this->sql = $this->conexao->prepare(UsuarioSQL::CONSULTAR_CPF($id));
