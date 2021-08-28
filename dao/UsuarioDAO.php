@@ -284,6 +284,15 @@ class UsuarioDAO extends Conexao
         return $this->sql->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public function ValidarSenhaAtual($idUser)
+    {
+        $this->sql = $this->conexao->prepare(UsuarioSQL::VALIDAR_SENHA_ATUAL());
+        $this->sql->bindValue(1, $idUser);
+        $this->sql->execute();
+        $ret = $this->sql->fetchAll(PDO::FETCH_ASSOC);
+        return $ret[0]['senha_usuario'];
+    }
+
     public function ValidarCPF($cpf, $id)
     {
         $this->sql = $this->conexao->prepare(UsuarioSQL::CONSULTAR_CPF($id));
@@ -303,5 +312,22 @@ class UsuarioDAO extends Conexao
         $this->sql->execute();
         $ret = $this->sql->fetchAll(PDO::FETCH_ASSOC);
         return $ret[0]['contar'];
+    }
+
+    public function AlterarSenhaFunc(UsuarioVO $vo)
+    {
+        $this->sql = $this->conexao->prepare(UsuarioSQL::ALTERAR_SENHA());
+        $i = 1;
+        $this->sql->bindValue($i++, $vo->getSenha());
+        $this->sql->bindValue($i++, $vo->getIdUser());
+
+        try {
+            $this->sql->execute();
+            return 1;
+        } catch (Exception $ex) {
+            $vo->setMsgErro($ex->getMessage());
+            parent::GravarErro($vo);
+            return -1;
+        }
     }
 }

@@ -24,7 +24,7 @@ function ValidarTela(n_tela) {
             }
             break;
 
-        case 3: // Novo Usuario
+        case 3: //Usuario
 
             if ($("#cpf").val().trim() == '' || $("#nome").val().trim() == '') {
                 ret = false;
@@ -61,16 +61,30 @@ function ValidarTela(n_tela) {
 
             break;
 
-        case 5: //Tela Remover Equipamento
+        case 5: //
 
             if ($("#idSetor").val().trim() == '')
                 ret = false;
 
             break;
 
-        case 6: //Tela Remover Equipamento
+        case 6: //
 
             if ($("#cpf").val().trim() == '' || $("#senha").val().trim() == '')
+                ret = false;
+
+            break;
+
+        case 7: //Validar senha atual
+
+            if ($("#senhaAtual").val().trim() == '')
+                ret = false;
+
+            break;
+
+        case 8: //Validar nova senha e confirmaçao
+
+            if ($("#novaSenha").val().trim() == '' || $("#repetirSenha").val().trim() == '')
                 ret = false;
 
             break;

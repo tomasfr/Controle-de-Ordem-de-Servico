@@ -83,7 +83,7 @@ function CarregarDadosExcluir(id, nome) {
 }
 
 function ValidarCPF(cpf_digitado, id_usuario) {
-    if (cpf_digitado != "") {   
+    if (cpf_digitado != "") {
         $.post('ajax/_verificar_cpf.php', {
             cpf: cpf_digitado,
             id_user: id_usuario
@@ -115,5 +115,24 @@ function ValidarEmail(email_digitado, tipo_escolhido) {
                 $("#email").removeClass('is-invalid');
             }
         })
+    }
+}
+
+function RepetirSenha() {
+
+    if (ValidarTela(8)) {
+        //nenhum esta vazio
+
+        if ($("#novaSenha").val() != $("#repetirSenha").val()) {
+
+            //os campos nao estao iguais
+            ExibirMsg('5');
+            $("#repetirSenha").val('');
+
+            return false;
+        }
+    } else {
+        return false;
+
     }
 }

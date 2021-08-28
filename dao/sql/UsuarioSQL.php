@@ -200,4 +200,24 @@ class UsuarioSQL
 
         return $sql;
     }
+
+    public static function VALIDAR_SENHA_ATUAL()
+    {
+        $sql = '';
+        $sql = 'SELECT senha_usuario
+                    from tb_usuario 
+                where id_usuario = ?';
+
+        return $sql;
+    }
+
+    public static function ALTERAR_SENHA()
+    {
+        $sql = '';
+        $sql = 'UPDATE tb_usuario
+                        set senha_usuario = ?
+                    where id_usuario = ?';
+
+        return $sql;
+    }
 }

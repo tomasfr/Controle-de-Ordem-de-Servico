@@ -31,5 +31,17 @@ function ExibirMsg(tipo) {
             toastr.info(RetornarMsg(2))
 
             break;
+
+        case '4':
+
+            toastr.info(RetornarMsg(4))
+
+            break;
+
+        case '5':
+
+            toastr.error(RetornarMsg(5))
+
+            break;
     }
 }

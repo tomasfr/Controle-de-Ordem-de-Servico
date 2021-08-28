@@ -12,6 +12,7 @@ define('ExcluirUserTec', 'ExcluirUserTec');
 define('AlterarUserAdm', 'AlterarUserAdm');
 define('AlterarUserFunc', 'AlterarUserFunc');
 define('AlterarUserTec', 'AlterarUserTec');
+define('AlterarSenhaFunc', 'AlterarSenhaFunc');
 
 
 class UsuarioCTRL
@@ -143,13 +144,6 @@ class UsuarioCTRL
         return $dao->ConsultarEmail($email, $tipo);
     }
 
-    public function ConsultarUser(UsuarioVO $vo)
-    {
-        if ($vo->getIdUser() == '') {
-            return 0;
-        }
-    }
-
     public function DetalharUsuario($idUser)
     {
         $dao = new UsuarioDAO();
@@ -202,5 +196,30 @@ class UsuarioCTRL
 
         $dao = new UsuarioDAO();
         return $dao->AlterarUserTec($vo);
+    }
+
+    public function ValidarSenhaAtual($senha_digitada)
+    {
+        $dao = new UsuarioDAO();
+        $senha_hash = $dao->ValidarSenhaAtual(UtilCTRL::CodigoLogado());
+
+        return password_verify($senha_digitada, $senha_hash);
+    }
+
+    public function AlterarSenhaFunc(UsuarioVO $vo)
+    {
+        if ($vo->getSenha() == '')
+            return 0;
+
+        $vo->setIdUser(UtilCTRL::CodigoLogado());
+        $vo->setSenha(UtilCTRL::CriptografarSenha($vo->getSenha()));
+
+        $vo->setFuncaoErro(AlterarSenhaFunc);
+        $vo->setIdUserErro(UtilCTRL::CodigoLogado());
+        $vo->setDataErro(UtilCTRL::DataAtualExibir());
+        $vo->setHoraErro(UtilCTRL::HoraAtual());
+
+        $dao = new UsuarioDAO();
+        return $dao->AlterarSenhaFunc($vo);
     }
 }

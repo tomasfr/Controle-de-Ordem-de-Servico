@@ -1,5 +1,5 @@
 <?php
-
+require_once '../../controller/UtilCTRL.php';
 require_once '../../vo/FuncionarioVO.php';
 require_once '../../controller/UsuarioCTRL.php';
 
@@ -9,12 +9,17 @@ if (isset($_POST['btnSalvar'])) {
 
     $vo = new FuncionarioVO();
 
+    $vo->setIdUser(UtilCTRL::CodigoLogado());
+    $vo->setNomeUser($_POST['nome']);
+    $vo->setCpf($_POST['cpf']);
     $vo->setEmail($_POST['email']);
-    $vo->setTel($_POST['tel']);
+    $vo->setTel($_POST['telefone']);
     $vo->setEndereco($_POST['endereco']);
+    $vo->setIdSetor($_POST['setor']);
 
-    $ret = $ctrl->AlterarDadosFunc($vo);
+    $ret = $ctrl->AlterarUserFunc($vo);
 }
+$dados = $ctrl->DetalharUsuario(UtilCTRL::CodigoLogado());
 
 ?>
 
@@ -62,52 +67,55 @@ if (isset($_POST['btnSalvar'])) {
                     <div class="card-header">
                         <h3 class="card-title">Aqui você poderá alterar seus dados</h3>
                     </div>
-                    <form action="meus_dados.php" method="POST">
-                        <div class="card-body">
+                    <div class="card-body">
+                        <form action="meus_dados.php" method="POST">
                             <div class="row">
+
+                                <input type="hidden" name="setor" id="setor" value="<?= $dados[0]['id_setor'] ?>">
+                                <input type="hidden" name="tipo" id="tipo" value="<?= $dados[0]['tipo_usuario'] ?>">
 
                                 <div class="form-group col-md-6">
                                     <label>Nome</label>
-                                    <input readonly name="nome" id="nome" class="form-control">
+                                    <input readonly name="nome" id="nome" class="form-control" value="<?= $dados[0]['nome_usuario'] ?>">
                                 </div>
 
                                 <div class="form-group col-md-6">
                                     <label>CPF</label>
-                                    <input readonly name="cpf" id="cpf" class="form-control">
+                                    <input readonly name="cpf" id="cpf" class="form-control" value="<?= $dados[0]['cpf_usuario'] ?>">
                                 </div>
 
                                 <div class="form-group col-md-6">
                                     <label>E-mail</label>
-                                    <input name="email" id="email" class="form-control" placeholder="Digite aqui..." maxlength="45">
+                                    <input name="email" id="email" class="form-control" placeholder="Digite aqui..." maxlength="45" value="<?= $dados[0]['email_func'] ?>">
                                 </div>
 
                                 <div class="form-group col-md-6">
                                     <label>Telefone</label>
-                                    <input name="tel" id="tel" class="form-control num tel" placeholder="Digite aqui...">
+                                    <input name="telefone" id="telefone" class="form-control num tel" placeholder="Digite aqui..." value="<?= $dados[0]['tel_func'] ?>">
                                 </div>
 
-                                <div class="form-group">
+                                <div class="form-group col-md-12">
                                     <label>Endereço</label>
-                                    <input name="endereco" id="endereco" class="form-control" placeholder="Digite aqui..." maxlength="50">
+                                    <input name="endereco" id="endereco" class="form-control" placeholder="Digite aqui..." maxlength="50" value="<?= $dados[0]['end_func'] ?>">
                                 </div>
 
                             </div>
 
-                            <button name="btnSalvar" onclick="return ValidarTela(5)" class="btn btn-success">Gravar</button>
-                    </form>
+                            <button name="btnSalvar" onclick="return ValidarTela(3)" class="btn btn-success">Gravar</button>
+                        </form>
+                    </div>
+
                 </div>
+                <!-- /.card -->
 
+            </section>
+            <!-- /.content -->
         </div>
-        <!-- /.card -->
+        <!-- /.content-wrapper -->
 
-        </section>
-        <!-- /.content -->
-    </div>
-    <!-- /.content-wrapper -->
-
-    <?php
-    include_once '../../template/_footer.php';
-    ?>
+        <?php
+        include_once '../../template/_footer.php';
+        ?>
     </div>
     <!-- ./wrapper -->
 

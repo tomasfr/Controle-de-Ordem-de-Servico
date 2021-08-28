@@ -5,9 +5,12 @@ require_once '../../vo/UsuarioVO.php';
 
 $ctrl = new UsuarioCTRL();
 
-if(isset($_POST['btnSalvar'])){
+if (isset($_POST['btnSalvar']) && $_POST['repetirSenha'] != '') {
 
-    
+    $vo = new UsuarioVO();
+    $vo->setSenha($_POST['novaSenha']);
+
+    $ret = $ctrl->AlterarSenhaFunc($vo);
 }
 
 ?>
@@ -58,24 +61,31 @@ if(isset($_POST['btnSalvar'])){
                     </div>
                     <div class="card-body">
 
-                        <form action="alterar_senha.php" method="POST">
 
+                        <div class="" id="divSenhaAtual">
                             <div class="form-group">
                                 <label>Senha Atual</label>
-                                <input name="senhaatual" id="senhaatual" class="form-control" maxlength="60">
+                                <input type="password" name="senhaAtual" id="senhaAtual" class="form-control" maxlength="60">
                             </div>
 
-                            <div class="form-group">
-                                <label>Nova Senha</label>
-                                <input name="novasenha" id="novasenha" class="form-control" placeholder="Digite aqui..." maxlength="60">
-                            </div>
+                            <button name="btnVerificar" onclick="return ValidarSenhaAtual(7)" class="btn btn-success">Verificar</button>
+                        </div>
 
-                            <div class="form-group">
-                                <label>Repetir Senha</label>
-                                <input name="repetirsenha" id="repetirsenha" class="form-control" placeholder="Digite aqui..." maxlength="60">
-                            </div>
+                        <form action="alterar_senha.php" method="POST">
 
-                            <button name="btnSalvar" class="btn btn-success">Gravar</button>
+                            <div class="" id="divNovaSenha" style="display: none">
+                                <div class="form-group">
+                                    <label>Nova Senha</label>
+                                    <input type="password" name="novaSenha" id="novaSenha" class="form-control" placeholder="Digite aqui..." maxlength="60">
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Repetir Senha</label>
+                                    <input type="password" name="repetirSenha" id="repetirSenha" class="form-control" placeholder="Digite aqui..." maxlength="60">
+                                </div>
+
+                                <button name="btnSalvar" onclick="return RepetirSenha(8)" class="btn btn-success">Gravar</button>
+                            </div>
 
                         </form>
                     </div>
@@ -96,6 +106,7 @@ if(isset($_POST['btnSalvar'])){
     include_once '../../template/_scripts.php';
     include_once '../../template/_msg.php';
     ?>
+    <script src="../../template/js/ajax_senha.js"></script>
 </body>
 
 </html>

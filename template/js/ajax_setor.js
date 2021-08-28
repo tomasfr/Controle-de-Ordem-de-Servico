@@ -18,7 +18,7 @@ function InserirSetor() {
             nome: nome_dig,
             acao: 1
         }, function (ret) {
-            
+
             ExibirMsg(ret);
 
             if (ret == 1) {

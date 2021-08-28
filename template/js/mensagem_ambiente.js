@@ -32,6 +32,10 @@ function RetornarMsg(num) {
             msg = "Senha inválida";
             break;
 
+        case 5:
+            msg = "Repita a mesma senha nos dois campos";
+            break;
+
     }
 
     return msg;
