@@ -2,8 +2,9 @@
 
 require_once '../../controller/UtilCTRL.php';
 require_once UtilCTRL::RetornarCaminho() . 'dao/TipoEquipDAO.php';
+require_once 'SistemaVO.php';
 
-class ChamadoVO
+class ChamadoVO extends SistemaVO
 {
 
     private $idChamado;
@@ -109,7 +110,7 @@ class ChamadoVO
         return $this->idEquipamento;
     }
 
-    public function setUsuarioFunc($usuariofunc)
+    public function setIdUsuarioFunc($usuariofunc)
     {
         $this->idUsuarioFunc = $usuariofunc;
     }

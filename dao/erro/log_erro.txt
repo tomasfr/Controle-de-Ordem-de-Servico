@@ -76,3 +76,31 @@
 - CÓDIGO DO LOGADO: 1
 - FUNÇÃO DO ERRO: CadastrarCaixa
 - MENSAGEM DE ERRO: SQLSTATE[23000]: Integrity constraint violation: 1452 Cannot add or update a child row: a foreign key constraint fails (`db_veronica_beach_club`.`tb_caixa`, CONSTRAINT `fk_tb_caixa_tb_usuario` FOREIGN KEY (`id_usuario`) REFERENCES `tb_usuario` (`id_usuario`) ON DELETE NO ACTION ON UPDATE NO ACTION)
+--------------------------------------------------------
+- DATA DO ERRO: 01/09/2021
+- HORÁRIO DO ERRO: 17:41
+- CÓDIGO DO LOGADO: 8
+- FUNÇÃO DO ERRO: AbrirChamado
+- MENSAGEM DE ERRO: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '(data_chamado,
+                        hora_chamado,
+                        d' at line 1
+--------------------------------------------------------
+- DATA DO ERRO: 01/09/2021
+- HORÁRIO DO ERRO: 17:43
+- CÓDIGO DO LOGADO: 8
+- FUNÇÃO DO ERRO: AbrirChamado
+- MENSAGEM DE ERRO: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '(data_chamado,
+                        hora_chamado,
+                        d' at line 1
+--------------------------------------------------------
+- DATA DO ERRO: 01/09/2021
+- HORÁRIO DO ERRO: 17:43
+- CÓDIGO DO LOGADO: 8
+- FUNÇÃO DO ERRO: AbrirChamado
+- MENSAGEM DE ERRO: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'db_os.tb_alocarequio' doesn't exist
+--------------------------------------------------------
+- DATA DO ERRO: 01/09/2021
+- HORÁRIO DO ERRO: 17:44
+- CÓDIGO DO LOGADO: 8
+- FUNÇÃO DO ERRO: AbrirChamado
+- MENSAGEM DE ERRO: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'db_os.tb_alocarequio' doesn't exist

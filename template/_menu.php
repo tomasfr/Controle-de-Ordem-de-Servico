@@ -1,6 +1,6 @@
 <?php
 
-require_once $_SERVER['DOCUMENT_ROOT'] . '/ControleOS/controller/utilCTRL.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/ControleOS/controller/UtilCTRL.php';
 
 if (isset($_GET['close']) && $_GET['close'] == 1) {
     UtilCTRL::Deslogar();

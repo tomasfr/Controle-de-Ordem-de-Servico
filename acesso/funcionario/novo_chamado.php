@@ -5,15 +5,17 @@ require_once '../../controller/ChamadoCTRL.php';
 
 $ctrl = new ChamadoCRTL();
 
-if(isset($_POST['btnSalvar'])){
+if (isset($_POST['btnSalvar'])) {
 
     $vo = new ChamadoVO();
 
     $vo->setIdEquipamento($_POST['equip']);
     $vo->setDescProblema($_POST['desc']);
 
-    $ret = $ctrl->NovoChamado($vo);
+    $ret = $ctrl->AbrirChamado($vo);
 }
+
+$eqs = $ctrl->FiltrarEquipamentosChamado();
 
 ?>
 
@@ -69,6 +71,9 @@ if(isset($_POST['btnSalvar'])){
                                 <label>Equipamentos</label>
                                 <select name="equip" id="equip" class="form-control">
                                     <option value="">Selecione...</option>
+                                    <?php for ($i = 0; $i < count($eqs); $i++) { ?>
+                                        <option value="<?= $eqs[$i]['id_equipamento'] ?>"><?= $eqs[$i]['ident_equip'] . ' / ' . $eqs[$i]['desc_equip'] ?></option>
+                                    <?php } ?>
                                 </select>
                             </div>
 
@@ -77,7 +82,7 @@ if(isset($_POST['btnSalvar'])){
                                 <textarea name="desc" id="desc" class="form-control" placeholder="Digite aqui..." maxlength="200"></textarea>
                             </div>
 
-                            <button name="btnSalvar" onclick="return ValidarTela(4)" class="btn btn-success">Gravar</button>
+                            <button name="btnSalvar" onclick="return ValidarTela(9)" class="btn btn-success">Gravar</button>
 
                         </form>
                     </div>

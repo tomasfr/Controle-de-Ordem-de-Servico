@@ -314,7 +314,7 @@ class UsuarioDAO extends Conexao
         return $ret[0]['contar'];
     }
 
-    public function AlterarSenhaFunc(UsuarioVO $vo)
+    public function AlterarSenha(UsuarioVO $vo)
     {
         $this->sql = $this->conexao->prepare(UsuarioSQL::ALTERAR_SENHA());
         $i = 1;

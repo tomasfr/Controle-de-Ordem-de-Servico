@@ -89,6 +89,14 @@ function ValidarTela(n_tela) {
 
             break;
 
+        case 9: //Tela abrir chamado
+
+            if ($("#equip").val().trim() == '')
+                ret = false;
+
+            break;
+
+
     }
 
     if (!ret)

@@ -33,6 +33,10 @@ function RetornarMsg(num) {
             break;
 
         case 5:
+            msg = "Senha deve conter no mínimo 6 caracteres";
+            break;
+
+        case 6:
             msg = "Repita a mesma senha nos dois campos";
             break;
 

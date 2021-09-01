@@ -10,7 +10,7 @@ if (isset($_POST['btnSalvar']) && $_POST['repetirSenha'] != '') {
     $vo = new UsuarioVO();
     $vo->setSenha($_POST['novaSenha']);
 
-    $ret = $ctrl->AlterarSenhaFunc($vo);
+    $ret = $ctrl->AlterarSenha($vo);
 }
 
 ?>
@@ -68,7 +68,7 @@ if (isset($_POST['btnSalvar']) && $_POST['repetirSenha'] != '') {
                                 <input type="password" name="senhaAtual" id="senhaAtual" class="form-control" maxlength="60">
                             </div>
 
-                            <button name="btnVerificar" onclick="return ValidarSenhaAtual(7)" class="btn btn-success">Verificar</button>
+                            <button name="btnVerificar" onclick="ValidarSenhaAtual()" class="btn btn-success">Verificar</button>
                         </div>
 
                         <form action="alterar_senha.php" method="POST">
@@ -84,7 +84,7 @@ if (isset($_POST['btnSalvar']) && $_POST['repetirSenha'] != '') {
                                     <input type="password" name="repetirSenha" id="repetirSenha" class="form-control" placeholder="Digite aqui..." maxlength="60">
                                 </div>
 
-                                <button name="btnSalvar" onclick="return RepetirSenha(8)" class="btn btn-success">Gravar</button>
+                                <button name="btnSalvar" onclick="return RepetirSenha()" class="btn btn-success">Gravar</button>
                             </div>
 
                         </form>

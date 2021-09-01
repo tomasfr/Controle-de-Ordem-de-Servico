@@ -24,13 +24,11 @@ class UsuarioCTRL
             return 0;
 
         $dao = new UsuarioDAO();
-
         $user = $dao->ValidarLogin(UtilCTRL::TirarCaracteresEspeciais($login));
 
         if (count($user) == 0) {
             return 3;
         } else if (password_verify($senha, $user[0]['senha_usuario'])) {
-
 
             UtilCTRL::CriarSessao(
                 $user[0]['id_usuario'],
@@ -40,7 +38,6 @@ class UsuarioCTRL
             );
 
             switch ($user[0]['tipo_usuario']) {
-
                 case 1: //Adm
                     header('location: http://localhost/controleos/acesso/admin/novo_usuario.php');
                     break;
@@ -206,7 +203,7 @@ class UsuarioCTRL
         return password_verify($senha_digitada, $senha_hash);
     }
 
-    public function AlterarSenhaFunc(UsuarioVO $vo)
+    public function AlterarSenha(UsuarioVO $vo)
     {
         if ($vo->getSenha() == '')
             return 0;
@@ -220,6 +217,6 @@ class UsuarioCTRL
         $vo->setHoraErro(UtilCTRL::HoraAtual());
 
         $dao = new UsuarioDAO();
-        return $dao->AlterarSenhaFunc($vo);
+        return $dao->AlterarSenha($vo);
     }
 }

@@ -1,7 +1,6 @@
 <?php
 
 require_once $_SERVER['DOCUMENT_ROOT'] . '/Controleos/controller/UsuarioCTRL.php';
-require_once $_SERVER['DOCUMENT_ROOT'] . '/Controleos/vo/UsuarioVO.php';
 
 if (isset($_POST['senha'])) {
 

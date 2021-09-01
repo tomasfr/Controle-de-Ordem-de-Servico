@@ -3,6 +3,7 @@
 require_once '../../controller/UsuarioCTRL.php';
 
 if (isset($_POST['btnAcessar'])) {
+
     $senha = $_POST['senha'];
     $cpf = $_POST['cpf'];
 

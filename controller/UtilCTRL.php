@@ -11,6 +11,7 @@ class UtilCTRL
     public static function NomeTipoUser($tipo)
     {
         switch ($tipo) {
+
             case 1:
                 $nome = 'Administrador';
                 break;
@@ -31,9 +32,10 @@ class UtilCTRL
             session_start();
     }
 
-    public static function CriarSessao($idUser, $nome,  $tipo, $idSetor)
+    public static function CriarSessao($idUser, $nome, $tipo, $idSetor)
     {
         self::IniciarSessao();
+
         $_SESSION['codUser'] = $idUser;
         $_SESSION['nome'] = $nome;
         $_SESSION['tipo'] = $tipo;
@@ -58,7 +60,7 @@ class UtilCTRL
         return $_SESSION['tipo'];
     }
 
-    public static function SetorLogado()
+    public static function IdSetorLogado()
     {
         self::IniciarSessao();
         return $_SESSION['setor'];
@@ -67,6 +69,7 @@ class UtilCTRL
     public static function Deslogar()
     {
         self::IniciarSessao();
+
         unset($_SESSION['codUser']);
         unset($_SESSION['nome']);
         unset($_SESSION['tipo']);

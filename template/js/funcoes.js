@@ -118,15 +118,46 @@ function ValidarEmail(email_digitado, tipo_escolhido) {
     }
 }
 
+function ValidarSenhaAtual() {
+
+    if (ValidarTela(7)) {
+
+        var senha_digitada = $("#senhaAtual").val().trim();
+
+        $.post('ajax/_senha.php', {
+            senha: senha_digitada
+        }, function (ret) {
+
+            if (ret) {
+                $("#divSenhaAtual").hide();
+                $("#divNovaSenha").show();
+
+            } else if (!ret) {
+                ExibirMsg('4');
+                $("#senhaAtual").val('').addClass('is-invalid');
+
+            }
+        });
+    }
+
+    return false;
+
+}
+
 function RepetirSenha() {
 
     if (ValidarTela(8)) {
         //nenhum esta vazio
 
-        if ($("#novaSenha").val() != $("#repetirSenha").val()) {
+        if ($("#novaSenha").val().trim().length < 6) {
+            ExibirMsg('5');
+            return false;
+        }
+
+       else if ($("#novaSenha").val().trim() != $("#repetirSenha").val().trim()) {
 
             //os campos nao estao iguais
-            ExibirMsg('5');
+            ExibirMsg('6');
             $("#repetirSenha").val('');
 
             return false;
@@ -135,4 +166,4 @@ function RepetirSenha() {
         return false;
 
     }
-}
+} 

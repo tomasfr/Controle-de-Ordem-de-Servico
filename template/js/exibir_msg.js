@@ -40,7 +40,13 @@ function ExibirMsg(tipo) {
 
         case '5':
 
-            toastr.error(RetornarMsg(5))
+            toastr.info(RetornarMsg(5))
+
+            break;
+
+        case '6':
+
+            toastr.info(RetornarMsg(6))
 
             break;
     }
