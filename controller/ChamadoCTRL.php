@@ -16,7 +16,7 @@ class ChamadoCRTL
 
     public function AbrirChamado(ChamadoVO $vo)
     {
-        if ($vo->getIdEquipamento() == '')
+        if ($vo->getIdEquipamento() == '' || $vo->getDescProblema() == '')
             return 0;
 
         $vo->setFuncaoErro(AbrirChamado);
@@ -30,5 +30,11 @@ class ChamadoCRTL
 
         $dao = new ChamadoDAO();
         return $dao->AbrirChamado($vo);
+    }
+
+    public function ConsultarChamados($situacao)
+    {
+        $dao = new ChamadoDAO();
+        return $dao->ConsultarChamados($situacao);
     }
 }

@@ -51,7 +51,7 @@ class ChamadoDAO extends Conexao
             $i = 1;
 
             $this->sql->bindValue($i++, 3);
-            $this->sql->bindValue($i++, $vo->getIdEquipamento());
+            $this->sql->bindValue($i++, $vo->getIdAlocarEquip());
 
             $this->sql->execute();
 
@@ -64,5 +64,13 @@ class ChamadoDAO extends Conexao
             parent::GravarErro($vo);
             return -1;
         }
+    }
+
+    public function ConsultarChamados($situcao)
+    {
+        $this->sql = $this->conexao->prepare(ChamadoSQL::CONSULTAR_CHAMADOS($situcao));
+
+        $this->sql->execute();
+        return $this->sql->fetchAll(PDO::FETCH_ASSOC);
     }
 }

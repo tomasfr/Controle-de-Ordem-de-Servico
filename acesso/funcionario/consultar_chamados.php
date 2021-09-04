@@ -1,8 +1,22 @@
-<?
+<?php
 
+require '../../controller/UtilCTRL.php';
 require_once '../../controller/ChamadoCTRL.php';
 require_once '../../vo/ChamadoVO.php';
 
+$situacao = '';
+
+if (isset($_POST['btnBuscar'])) {
+
+    $ctrl = new ChamadoCRTL();
+
+    $situacao = $_POST['situacao'];
+    $dados = $ctrl->ConsultarChamados($situacao);
+
+    if (count($dados) == 0) {
+        $ret = 2;
+    }
+}
 ?>
 
 
@@ -30,12 +44,12 @@ require_once '../../vo/ChamadoVO.php';
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1>Meus Chamados</h1>
+                            <h1>Chamados</h1>
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="#">Funcionário</a></li>
-                                <li class="breadcrumb-item active">Meus Chamados</li>
+                                <li class="breadcrumb-item active">Chamados do setor</li>
                             </ol>
                         </div>
                     </div>
@@ -48,7 +62,7 @@ require_once '../../vo/ChamadoVO.php';
                 <!-- Default box -->
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title">Consulte todos os seus chamados e acompanhe os atendimentos</h3>
+                        <h3 class="card-title">Consulte todos os seus chamados do seu setor e acompanhe os atendimentos</h3>
                     </div>
                     <div class="card-body">
                         <form action="consultar_chamados.php" method="POST">
@@ -66,45 +80,53 @@ require_once '../../vo/ChamadoVO.php';
                 <!-- /.card -->
                 <div class="row">
                     <div class="col-12">
-                        <div class="card">
-                            <div class="card-header">
-                                <h3 class="card-title">Resultado Encontrado</h3>
-                            </div>
-                            <!-- /.card-header -->
-                            <div class="card-body">
-                                <table class="table table-bordered">
-                                    <thead>
-                                        <tr>
-                                            <th>Data Abertura</th>
-                                            <th>Funcionário</th>
-                                            <th>Equipamento</th>
-                                            <th>Problema</th>
-                                            <th>Data Atendimento</th>
-                                            <th>Técnico</th>
-                                            <th>Data Encerramento</th>
-                                            <th>Laudo</th>
-                                            <th>Ação</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>(abertura)</td>
-                                            <td>(funcionario)</td>
-                                            <td>(equipamento)</td>
-                                            <td>(problema)</td>
-                                            <td>(atendimento)</td>
-                                            <td>(tecnico)</td>
-                                            <td>(encerramento)</td>
-                                            <td>(laudo)</td>
-                                            <td>
-                                                <a href="#" class="btn bg-gradient-primary btn-xs">Ver Mais</a>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
+                        <?php if (isset($dados) && count($dados) > 0) { ?>
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3 class="card-title">Resultado Encontrado</h3>
+                                </div>
+                                <!-- /.card-header -->
+                                <div class="card-body">
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th>Data Abertura</th>
+                                                <th>Funcionário</th>
+                                                <th>Equipamento</th>
+                                                <th>Problema</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php foreach ($dados as $item) { ?>
+                                                <tr>
+                                                    <td><?= UtilCTRL::DataAtualExibir($item['data_chamado']) ?></td>
+                                                    <td><?= $item['nome_usuario'] ?></td>
+                                                    <td><?= $item['desc_equip'] . ' / ' . $item['ident_equip'] ?></td>
+                                                    <td><?= $item['desc_problema'] ?></td>
+                                                    <td>
+                                                        <a href="#" class="btn bg-gradient-primary btn-xs">Ver Mais</a>
+                                                    </td>
+                                                <?php } ?>
+                                                </tr>
+                                        </tbody>
+                                        <!-- 
+                                        
+                                                <th>Data Atendimento</th>
+                                                <th>Técnico</th>
+                                                <th>Data Encerramento</th>
+                                                <th>Laudo</th>
 
-                        </div>
+                                                <td>(problema)</td>
+                                                <td>(atendimento)</td>
+                                                <td>(tecnico)</td>
+                                                <td>(encerramento)</td>
+                                                <td>(laudo)</td>
+                                                 -->
+                                    </table>
+                                </div>
+
+                            </div>
+                        <?php } ?>
                         <!-- /.card -->
                     </div>
                 </div>

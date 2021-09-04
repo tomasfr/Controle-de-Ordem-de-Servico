@@ -9,7 +9,10 @@ if (isset($_POST['btnSalvar'])) {
 
     $vo = new ChamadoVO();
 
-    $vo->setIdEquipamento($_POST['equip']);
+    $ids = explode('-', $_POST['equip']);
+
+    $vo->setIdEquipamento($ids[0]);
+    $vo->setIdAlocarEquip($ids[1]);
     $vo->setDescProblema($_POST['desc']);
 
     $ret = $ctrl->AbrirChamado($vo);
@@ -72,7 +75,7 @@ $eqs = $ctrl->FiltrarEquipamentosChamado();
                                 <select name="equip" id="equip" class="form-control">
                                     <option value="">Selecione...</option>
                                     <?php for ($i = 0; $i < count($eqs); $i++) { ?>
-                                        <option value="<?= $eqs[$i]['id_equipamento'] ?>"><?= $eqs[$i]['ident_equip'] . ' / ' . $eqs[$i]['desc_equip'] ?></option>
+                                        <option value="<?= $eqs[$i]['id_equipamento'] . '-' . $eqs[$i]['id_alocarequip'] ?>"><?= $eqs[$i]['ident_equip'] . ' / ' . $eqs[$i]['desc_equip'] ?></option>
                                     <?php } ?>
                                 </select>
                             </div>

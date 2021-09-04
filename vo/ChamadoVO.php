@@ -8,6 +8,7 @@ class ChamadoVO extends SistemaVO
 {
 
     private $idChamado;
+    private $idAlocarEquip;
     private $dataChamado;
     private $horaChamado;
     private $descProblema;
@@ -27,6 +28,15 @@ class ChamadoVO extends SistemaVO
     public function getIdChamado()
     {
         return $this->idChamado;
+    }
+
+    public function setIdAlocarEquip($idAlocarEquip)
+    {
+        $this->idAlocarEquip = $idAlocarEquip;
+    }
+    public function getIdAlocarEquip()
+    {
+        return $this->idAlocarEquip;
     }
 
     public function setDataChamado($datachamado)
@@ -49,7 +59,7 @@ class ChamadoVO extends SistemaVO
 
     public function setDescProblema($descproblema)
     {
-        $this->descProblema = UtilCTRL::TirarCaracteresEspeciais(trim(ltrim($descproblema)));
+        $this->descProblema = UtilCTRL::TirarScriptsMaliciosos(trim(ltrim($descproblema)));
     }
     public function getDescProblema()
     {
