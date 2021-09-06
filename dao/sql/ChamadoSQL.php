@@ -43,100 +43,52 @@ class ChamadoSQL
         return $sql;
     }
 
-    public static function CONSULTAR_CHAMADOS($situacao)
+    public static function FILTRAR_CHAMADO_SETOR($situacao)
     {
         $sql = '';
 
-        if ($situacao == 0) { //todos
+        $sql = 'SELECT ch.id_chamado,
+                       ch.data_abertura,
+                       ch.data_atendimento,
+                       ch.data_encerramento,
+                       ch.hora_encerramento,
+                       ch.laudo_tecnico,
+                       ch.desc_problema,
+                       eq.ident_equip,
+                       eq.desc_equip,
+                       usu_fun.nome_usuario
+                from tb_chamado as ch
+            inner join tb_equipamento as eq
+                on ch.id_equipamento = eq.id_equipamento
+            inner join tb_funcionario as fu
+                on ch.id_usuario_func = fu.id_usuario_func
+            inner join tb_usuario as usu_fun
+                on fu.id_usuario_func = usu_fun.id_usuario
+            inner join tb_alocarequip as al
+                on eq.id_equipamento = al.id_equipamento
+            left join tb_tecnico as te
+                on ch.id_usuario_tec = te.id_usuario_tec
+            inner join tb_usuario as usu_tec
+                on te.id_usuario_tec = usu_tec.id_usuario
+            where al.id_setor = ?
+                and al.sit_alocar != ?';
 
-            $sql = 'SELECT ch.id_chamado,
-                           ch.data_chamado,
-                           ch.hora_chamado,
-                           ch.desc_problema,
-                           ch.data_atendimento,
-                           ch.hora_atendimento,
-                           ch.data_encerramento,
-                           ch.hora_encerramento,
-                           ch.laudo_tecnico,
-                           ch.id_equipamento,
-                           ch.id_usuario_func,
-                           ch.id_usuario_tec,
-                           eq.ident_equip,
-                           eq.desc_equip,
-                           user.nome_usuario
-                    from tb_chamado as ch
-                        inner join tb_equipamento as eq
-                            on ch.id_equipamento = eq.id_equipamento
-                        inner join tb_funcionario as fu
-                            on ch.id_usuario_func = fu.id_usuario_func
-                        inner join tb_usuario as user
-                            on fu.id_usuario_func = user.id_usuario';
-        } else if ($situacao == 1) { //aguardando atendimento
+        if ($situacao != 0) {
 
-            $sql = 'SELECT ch.id_chamado,
-                          ch.data_chamado,
-                          ch.hora_chamado,
-                          ch.desc_problema,
-                          ch.id_equipamento,
-                          ch.id_usuario_func,
-                          eq.ident_equip,
-                           eq.desc_equip,
-                           user.nome_usuario
-                    from tb_chamado as ch
-                        inner join tb_equipamento as eq
-                            on ch.id_equipamento = eq.id_equipamento
-                        inner join tb_funcionario as fu
-                            on ch.id_usuario_func = fu.id_usuario_func
-                        inner join tb_usuario as user
-                            on fu.id_usuario_func = user.id_usuario
-                        where data_atendimento is null';
-        } else if ($situacao == 2) { //em atendimento
-            $sql = 'SELECT ch.id_chamado,
-                           ch.data_chamado,
-                           ch.hora_chamado,
-                           ch.desc_problema,
-                           ch.data_atendimento,
-                           ch.hora_atendimento,
-                           ch.id_equipamento,
-                           ch.id_usuario_func,
-                           ch.id_usuario_tec,
-                           eq.ident_equip,
-                           eq.desc_equip,
-                           user.nome_usuario
-                    from tb_chamado as ch
-                        inner join tb_equipamento as eq
-                            on ch.id_equipamento = eq.id_equipamento
-                        inner join tb_funcionario as fu
-                            on ch.id_usuario_func = fu.id_usuario_func
-                        inner join tb_usuario as user
-                            on fu.id_usuario_func = user.id_usuario
-                        where data_atendimento != null';
-        } else if ($situacao == 3) { //finalizado
-            $sql = 'SELECT ch.id_chamado,
-                           ch.hora_chamado,
-                           ch.desc_problema,
-                           ch.data_chamado,
-                           ch.data_atendimento,
-                           ch.hora_atendimento,
-                           ch.data_encerramento,
-                           ch.hora_encerramento,
-                           ch.laudo_tecnico,
-                           ch.id_equipamento,
-                           ch.id_usuario_func,
-                           ch.id_usuario_tec,
-                           eq.ident_equip,
-                           eq.desc_equip,
-                           user.nome_usuario
-                    from tb_chamado as ch
-                        inner join tb_equipamento as eq
-                            on ch.id_equipamento = eq.id_equipamento
-                        inner join tb_funcionario as fu
-                            on ch.id_usuario_func = fu.id_usuario_func
-                        inner join tb_usuario as user
-                            on fu.id_usuario_func = user.id_usuario
-                         where data_encerramento != null';
+            switch ($situacao) {
+
+                case 1:
+                    $sql .= ' and ch.data_atendimento is null';
+                    break;
+                case 2:
+                    $sql .= ' and ch.data_atendimento !=  null
+                              and ch.data_encerramento is null';
+                    break;
+                case 3:
+                    $sql .= ' and ch.data_encerramento !=  null';
+                    break;
+            }
         }
-
 
         return $sql;
     }

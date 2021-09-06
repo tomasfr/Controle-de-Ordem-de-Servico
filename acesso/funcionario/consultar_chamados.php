@@ -4,14 +4,12 @@ require '../../controller/UtilCTRL.php';
 require_once '../../controller/ChamadoCTRL.php';
 require_once '../../vo/ChamadoVO.php';
 
-$situacao = '';
-
 if (isset($_POST['btnBuscar'])) {
 
     $ctrl = new ChamadoCRTL();
 
     $situacao = $_POST['situacao'];
-    $dados = $ctrl->ConsultarChamados($situacao);
+    $dados = $ctrl->FiltrarChamados($situacao);
 
     if (count($dados) == 0) {
         $ret = 2;

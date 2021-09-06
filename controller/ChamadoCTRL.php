@@ -32,9 +32,9 @@ class ChamadoCRTL
         return $dao->AbrirChamado($vo);
     }
 
-    public function ConsultarChamados($situacao)
+    public function FiltrarChamados($situacao)
     {
         $dao = new ChamadoDAO();
-        return $dao->ConsultarChamados($situacao);
+        return $dao->FiltrarChamados($situacao);
     }
 }

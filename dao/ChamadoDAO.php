@@ -66,9 +66,9 @@ class ChamadoDAO extends Conexao
         }
     }
 
-    public function ConsultarChamados($situcao)
+    public function FiltrarChamados($situcao)
     {
-        $this->sql = $this->conexao->prepare(ChamadoSQL::CONSULTAR_CHAMADOS($situcao));
+        $this->sql = $this->conexao->prepare(ChamadoSQL::FILTRAR_CHAMADO_SETOR($situcao));
 
         $this->sql->execute();
         return $this->sql->fetchAll(PDO::FETCH_ASSOC);
