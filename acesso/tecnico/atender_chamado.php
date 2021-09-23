@@ -1,3 +1,44 @@
+<?php
+
+require_once '../../controller/ChamadoCTRL.php';
+require_once '../../vo/ChamadoVO.php';
+require_once '../../controller/UtilCTRL.php';
+
+$ctrl = new ChamadoCTRL();
+
+if (isset($_GET['id']) && is_numeric($_GET['id'])) {
+    $dados = $ctrl->DetalharChamado($_GET['id']);
+
+    if (count($dados) == 0) {
+        header('location: consultar_chamados.php');
+        exit;
+    }
+} else if (isset($_POST['btnAtender'])) {
+
+    $vo = new ChamadoVO();
+    $vo->setIdChamado($_POST['id']);
+    $ret = $ctrl->AtenderChamado($vo);
+
+    header('location: atender_chamado.php?id=' . $_POST['id'] . '&ret=' . $ret);
+} else if (isset($_POST['btnFinalizar'])) {
+
+    $vo = new ChamadoVO();
+
+    $vo->setIdChamado($_POST['id']);
+    $vo->setLaudoTecnico($_POST['laudo']);
+    $vo->setIdAlocarEquip($_POST['idAlocarEquip']);
+    $ret = $ctrl->FinalizarChamado($vo);
+
+    header('location: atender_chamado.php?id=' . $_POST['id'] . '&ret=' . $ret);
+} else {
+
+    header('location: consultar_chamados.php');
+    exit;
+}
+
+
+?>
+
 <!DOCTYPE html>
 <html>
 
@@ -47,39 +88,54 @@
 
                             <div class="form-group col-md-6">
                                 <label>Data</label>
-                                <input name="data" id="data" class="form-control" placeholder="Digite aqui..." disabled>
+                                <input name="data" id="data" class="form-control" disabled value="<?= UtilCTRL::DataExibir($dados[0]['data_chamado']) ?>">
 
                             </div>
                             <div class="form-group col-md-6">
                                 <label>Funcionario</label>
-                                <input name="funcionario" id="funcionario" class="form-control" placeholder="Digite aqui..." disabled>
+                                <input name="funcionario" id="funcionario" class="form-control" disabled value="<?= $dados[0]['funcionario'] ?>">
 
                             </div>
                             <div class="form-group col-md-6">
                                 <label>Setor</label>
-                                <input name="setor" id="setor" class="form-control" placeholder="Digite aqui..." disabled>
+                                <input name="setor" id="setor" class="form-control" disabled value="<?= $dados[0]['nome_setor'] ?>">
 
                             </div>
                             <div class="form-group col-md-6">
                                 <label>Equipamento</label>
-                                <input name="equipamento" id="equipamento" class="form-control" placeholder="Digite aqui..." disabled>
+                                <input name="equipamento" id="equipamento" class="form-control" disabled value="<?= $dados[0]['ident_equip'] . ' / ' . $dados[0]['desc_equip'] ?>">
 
                             </div>
                         </div>
                         <div class="form-group">
                             <label>Descrição</label>
-                            <textarea name="desc" id="desc" class="form-control" placeholder="Digite aqui..." disabled></textarea>
-
-                        </div>
-                        <div class="form-group">
-                            <label>Laudo</label>
-                            <textarea name="laudo" id="laudo" class="form-control" placeholder="Digite aqui..." maxlength="200"></textarea>
-
+                            <textarea name="desc" id="desc" class="form-control" disabled><?= $dados[0]['desc_problema'] ?></textarea>
                         </div>
 
-                        <button name="btnAtender" class="btn btn-success">Atender</button>
-                        <button name="btnFinalizar" class="btn btn-success">Finalizar</button>
+                        <form method="post" action="atender_chamado.php">
 
+                            <input type="hidden" name="id" value="<?= $dados[0]['id_chamado'] ?>">
+                            <input type="hidden" name="idAlocarEquip" value="<?= $dados[0]['id_alocarequip'] ?>">
+
+                            <?php if ($dados[0]['data_atendimento'] != '') { ?>
+                                <div class="form-group">
+                                    <label>Laudo</label>
+                                    <textarea name="laudo" id="laudo" class="form-control" placeholder="Digite aqui..." maxlength="200" <?= $dados[0]['data_encerramento'] != '' ? 'readonly' : '' ?>><?= $dados[0]['laudo_tecnico'] ?></textarea>
+                                </div>
+
+                            <?php }
+                            if ($dados[0]['data_atendimento'] == '') { ?>
+
+                                <button name="btnAtender" class="btn btn-success">Atender</button>
+
+                            <?php } else if ($dados[0]['data_atendimento'] != '' && $dados[0]['data_encerramento'] == '') { ?>
+
+                                <button name="btnFinalizar" onclick="return ValidarTela(10)" class="btn btn-success">Finalizar</button>
+
+                            <?php } else { ?>
+                                <span>Finalizado em <?= UtilCTRL::DataExibir($dados[0]['data_encerramento']) ?> às <?= $dados[0]['hora_encerramento'] ?>.</span>
+                            <?php } ?>
+                        </form>
                     </div>
 
                 </div>
@@ -98,6 +154,7 @@
 
     <?php
     include_once '../../template/_scripts.php';
+    include_once '../../template/_msg.php';
     ?>
 </body>
 

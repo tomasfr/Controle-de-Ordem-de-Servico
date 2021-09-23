@@ -66,10 +66,94 @@ class ChamadoDAO extends Conexao
         }
     }
 
-    public function FiltrarChamados($situcao)
+    public function FiltrarChamado($idSetor, $situcao, $alocar)
     {
-        $this->sql = $this->conexao->prepare(ChamadoSQL::FILTRAR_CHAMADO_SETOR($situcao));
+        $this->sql = $this->conexao->prepare(ChamadoSQL::FILTRAR_CHAMADO($idSetor, $situcao));
 
+        $i = 1;
+        $this->sql->bindValue($i++, $alocar);
+
+        if ($idSetor != '') {
+
+            $this->sql->bindValue($i++, $idSetor);
+        }
+
+        $this->sql->execute();
+        return $this->sql->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function DetalharChamado($id)
+    {
+        $this->sql = $this->conexao->prepare(ChamadoSQL::DETALHAR_CHAMADO());
+
+        $i = 1;
+        $this->sql->bindValue($i++, $id);
+
+        $this->sql->execute();
+        return $this->sql->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function AtenderChamado(ChamadoVO $vo)
+    {
+        $this->sql = $this->conexao->prepare(ChamadoSQL::ATENDER_CHAMADO());
+        $i = 1;
+
+        $this->sql->bindValue($i++, $vo->getDataAtendimento());
+        $this->sql->bindValue($i++, $vo->getHoraAtendimento());
+        $this->sql->bindValue($i++, $vo->getIdUsuarioTec());
+        $this->sql->bindValue($i++, $vo->getIdChamado());
+
+        try {
+
+            $this->sql->execute();
+            return 1;
+        } catch (Exception $ex) {
+
+            $vo->setMsgErro($ex->getMessage());
+            parent::GravarErro($vo);
+            return -1;
+        }
+    }
+
+    public function FinalizarChamado(ChamadoVO $vo)
+    {
+        $this->sql = $this->conexao->prepare(ChamadoSQL::FINALIZAR_CHAMADO());
+        $i = 1;
+
+        $this->sql->bindValue($i++, $vo->getDataEncerramento());
+        $this->sql->bindValue($i++, $vo->getHoraEncerramento());
+        $this->sql->bindValue($i++, $vo->getIdUsuarioTec());
+        $this->sql->bindValue($i++, $vo->getLaudoTecnico());
+        $this->sql->bindValue($i++, $vo->getIdChamado());
+
+        $this->conexao->beginTransaction();
+
+        try {
+
+            $this->sql->execute();
+
+            $this->sql = $this->conexao->prepare(ChamadoSQL::ALTUALIZAR_SIT_EQUIPAMENTO());
+            $i = 1;
+
+            $this->sql->bindValue($i++, 1);
+            $this->sql->bindValue($i++, $vo->getIdAlocarEquip());
+
+            $this->sql->execute();
+
+            $this->conexao->commit();
+            return 1;
+        } catch (Exception $ex) {
+
+            $this->conexao->rollBack();
+            $vo->setMsgErro($ex->getMessage());
+            parent::GravarErro($vo);
+            return -1;
+        }
+    }
+
+    public function GerarGrafico()
+    {
+        $this->sql = $this->conexao->prepare(ChamadoSQL::GERAR_GRAFICO());
         $this->sql->execute();
         return $this->sql->fetchAll(PDO::FETCH_ASSOC);
     }

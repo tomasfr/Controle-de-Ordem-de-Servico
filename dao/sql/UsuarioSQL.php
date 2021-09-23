@@ -76,24 +76,24 @@ class UsuarioSQL
     {
         $sql = '';
 
-        $sql = 'SELECT 
-                        usu.nome_usuario,
-                        usu.tipo_usuario,
-                        usu.id_usuario,
-                        usu.cpf_usuario,
-                        fun.tel_func,
-                        fun.end_func,
-                        fun.email_func,
-                        id_setor,
-                        tec.tel_tec,
-                        tec.end_tec,
-                        tec.email_tec
-                    from tb_usuario as usu
-                left join tb_funcionario as fun
-                    on usu.id_usuario = fun.id_usuario_func
-                left join tb_tecnico as tec
-                    on usu.id_usuario = tec.id_usuario_tec
-                where usu.id_usuario = ?';
+        $sql = 'SELECT usu.id_usuario,
+                       usu.nome_usuario,
+                       usu.tipo_usuario,
+                       usu.id_usuario,
+                       usu.cpf_usuario,
+                       fun.tel_func,
+                       fun.end_func,
+                       fun.email_func,
+                       id_setor,
+                       tec.tel_tec,
+                       tec.end_tec,
+                       tec.email_tec
+                   from tb_usuario as usu
+               left join tb_funcionario as fun
+                   on usu.id_usuario = fun.id_usuario_func
+               left join tb_tecnico as tec
+                   on usu.id_usuario = tec.id_usuario_tec
+               where usu.id_usuario = ?';
 
         return $sql;
     }

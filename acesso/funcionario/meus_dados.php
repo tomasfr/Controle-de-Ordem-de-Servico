@@ -19,6 +19,7 @@ if (isset($_POST['btnSalvar'])) {
 
     $ret = $ctrl->AlterarUserFunc($vo);
 }
+
 $dados = $ctrl->DetalharUsuario(UtilCTRL::CodigoLogado());
 
 ?>

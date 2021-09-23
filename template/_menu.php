@@ -130,6 +130,14 @@ $nome = UtilCTRL::NomeLogado();
                             </p>
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a href="adm_rel_chamados.php" class="nav-link">
+                            <i class="nav-icon fas fa-bezier-curve"></i>
+                            <p>
+                                Relatório Chamados
+                            </p>
+                        </a>
+                    </li>
                 <?php } else if ($tipo == 2) { ?>
                     <!-- Menu Funcionários -->
                     <li class="nav-item has-treeview">

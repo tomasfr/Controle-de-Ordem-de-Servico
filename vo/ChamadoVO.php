@@ -129,7 +129,7 @@ class ChamadoVO extends SistemaVO
         return $this->idUsuarioFunc;
     }
 
-    public function setUsuarioTec($usuariotec)
+    public function setIdUsuarioTec($usuariotec)
     {
         $this->idUsuarioTec = $usuariotec;
     }

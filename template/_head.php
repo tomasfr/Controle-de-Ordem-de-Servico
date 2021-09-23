@@ -10,6 +10,8 @@
   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
   <!-- overlayScrollbars -->
   <link rel="stylesheet" href="../../template/dist/css/adminlte.min.css">
+  <!-- naoQuebraTable -->
+  <link rel="stylesheet" href="../../template/dist/css/mycustom.css">
   <!-- Toastr -->
   <link rel="stylesheet" href="../../template/plugins/toastr/toastr.min.css">
   <!-- Google Font: Source Sans Pro -->

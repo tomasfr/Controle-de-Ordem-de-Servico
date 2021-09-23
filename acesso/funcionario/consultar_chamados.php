@@ -6,10 +6,10 @@ require_once '../../vo/ChamadoVO.php';
 
 if (isset($_POST['btnBuscar'])) {
 
-    $ctrl = new ChamadoCRTL();
+    $ctrl = new ChamadoCTRL();
 
     $situacao = $_POST['situacao'];
-    $dados = $ctrl->FiltrarChamados($situacao);
+    $dados = $ctrl->FiltrarChamado($situacao, UtilCTRL::IdSetorLogado());
 
     if (count($dados) == 0) {
         $ret = 2;
@@ -53,10 +53,8 @@ if (isset($_POST['btnBuscar'])) {
                     </div>
                 </div><!-- /.container-fluid -->
             </section>
-
             <!-- Main content -->
             <section class="content">
-
                 <!-- Default box -->
                 <div class="card">
                     <div class="card-header">
@@ -64,16 +62,13 @@ if (isset($_POST['btnBuscar'])) {
                     </div>
                     <div class="card-body">
                         <form action="consultar_chamados.php" method="POST">
-
                             <div class="form-group">
                                 <label>Escolha a situação</label>
                                 <?php include_once '../../template/combos/_combo_situacao.php' ?>
                             </div>
-
                             <button name="btnBuscar" class="btn bg-gradient-primary">Buscar</button>
                         </form>
                     </div>
-
                 </div>
                 <!-- /.card -->
                 <div class="row">
@@ -92,37 +87,28 @@ if (isset($_POST['btnBuscar'])) {
                                                 <th>Funcionário</th>
                                                 <th>Equipamento</th>
                                                 <th>Problema</th>
+                                                <th>Situação</th>
+                                                <th>Ação</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <?php foreach ($dados as $item) { ?>
                                                 <tr>
                                                     <td><?= UtilCTRL::DataAtualExibir($item['data_chamado']) ?></td>
-                                                    <td><?= $item['nome_usuario'] ?></td>
+                                                    <td><?= $item['funcionario'] ?></td>
                                                     <td><?= $item['desc_equip'] . ' / ' . $item['ident_equip'] ?></td>
                                                     <td><?= $item['desc_problema'] ?></td>
+                                                    <td><?= UtilCTRL::SituacaoChamado($item['data_atendimento'], $item['data_encerramento']) ?></td>
                                                     <td>
-                                                        <a href="#" class="btn bg-gradient-primary btn-xs">Ver Mais</a>
+                                                        <?php if ($item['data_atendimento'] != '') { ?>
+                                                            <a href="#" data-toggle="moda" data-target="#modal-detalhar-chamado" onclick="CarregarDetalhesChamado('<?= UtilCTRL::DataAtualExibir($item['data_atendimento']) . ' às ' . $item['hora_atendimento'] ?>','<?= UtilCTRL::DataAtualExibir($item['data_encerramento'] . ' às ' . $item['hora_encerramento']) ?>','<?= $item['tecnico'] ?>','<?= $item['laudo_tecnico'] ?>')" class="btn bg-gradient-primary btn-xs">Ver Mais</a>
+                                                        <?php } ?>
                                                     </td>
                                                 <?php } ?>
                                                 </tr>
                                         </tbody>
-                                        <!-- 
-                                        
-                                                <th>Data Atendimento</th>
-                                                <th>Técnico</th>
-                                                <th>Data Encerramento</th>
-                                                <th>Laudo</th>
-
-                                                <td>(problema)</td>
-                                                <td>(atendimento)</td>
-                                                <td>(tecnico)</td>
-                                                <td>(encerramento)</td>
-                                                <td>(laudo)</td>
-                                                 -->
                                     </table>
                                 </div>
-
                             </div>
                         <?php } ?>
                         <!-- /.card -->

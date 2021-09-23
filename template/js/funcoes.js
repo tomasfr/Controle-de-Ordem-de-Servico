@@ -154,7 +154,7 @@ function RepetirSenha() {
             return false;
         }
 
-       else if ($("#novaSenha").val().trim() != $("#repetirSenha").val().trim()) {
+        else if ($("#novaSenha").val().trim() != $("#repetirSenha").val().trim()) {
 
             //os campos nao estao iguais
             ExibirMsg('6');
@@ -166,4 +166,12 @@ function RepetirSenha() {
         return false;
 
     }
-} 
+}
+
+function CarregarDadosChamado(data_atendimento, data_encerramento, funcionario, laudo) {
+
+    $("#data_atendimento").val(data_atendimento);
+    $("#data_encerramento").val(data_encerramento);
+    $("#funcionario").val(funcionario);
+    $("#laudo").val(laudo);
+}

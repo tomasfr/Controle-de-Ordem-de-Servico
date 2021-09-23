@@ -96,6 +96,13 @@ function ValidarTela(n_tela) {
 
             break;
 
+        case 10: //Tela laudo
+
+            if ($("#laudo").val().trim() == '')
+                ret = false;
+
+            break;
+
 
     }
 

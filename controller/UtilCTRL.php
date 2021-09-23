@@ -26,6 +26,20 @@ class UtilCTRL
         return $nome;
     }
 
+    public static function SituacaoChamado($data_atendimento, $data_encerramento)
+    {
+
+        if ($data_atendimento == '') {
+            $nome = '<span class="badge bg-warning">Aguardando</span>';
+        } else if ($data_atendimento != '' && $data_encerramento == '') {
+            $nome = '<span class="badge bg-info">Em atendimento</span>';
+        } else if ($data_encerramento != '') {
+            $nome = '<span class="badge bg-success">Finalizado</span>';
+        }
+
+        return $nome;
+    }
+
     public static function IniciarSessao()
     {
         if (!isset($_SESSION))

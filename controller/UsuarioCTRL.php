@@ -39,7 +39,7 @@ class UsuarioCTRL
 
             switch ($user[0]['tipo_usuario']) {
                 case 1: //Adm
-                    header('location: http://localhost/controleos/acesso/admin/novo_usuario.php');
+                    header('location: http://localhost/controleos/acesso/admin/adm_inicial.php');
                     break;
                 case 2: //Funcionario
                     header('location: http://localhost/controleos/acesso/funcionario/novo_chamado.php');

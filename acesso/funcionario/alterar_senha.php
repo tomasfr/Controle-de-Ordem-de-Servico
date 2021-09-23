@@ -61,7 +61,6 @@ if (isset($_POST['btnSalvar']) && $_POST['repetirSenha'] != '') {
                     </div>
                     <div class="card-body">
 
-
                         <div class="" id="divSenhaAtual">
                             <div class="form-group">
                                 <label>Senha Atual</label>
@@ -89,7 +88,8 @@ if (isset($_POST['btnSalvar']) && $_POST['repetirSenha'] != '') {
 
                         </form>
                     </div>
-                    <!-- /.card -->
+                </div>
+                <!-- /.card -->
 
             </section>
             <!-- /.content -->

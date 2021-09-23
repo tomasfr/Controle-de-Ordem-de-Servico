@@ -4,8 +4,10 @@ require_once 'UtilCTRL.php';
 require_once UtilCTRL::RetornarCaminho() . 'dao/ChamadoDAO.php';
 
 define('AbrirChamado', 'AbrirChamado');
+define('AtenderChamado', 'AtenderChamado');
+define('FinalizarChamado', 'FinalizarChamado');
 
-class ChamadoCRTL
+class ChamadoCTRL
 {
 
     public function FiltrarEquipamentosChamado()
@@ -32,9 +34,51 @@ class ChamadoCRTL
         return $dao->AbrirChamado($vo);
     }
 
-    public function FiltrarChamados($situacao)
+    public function FiltrarChamado($situacao, $idSetor)
     {
         $dao = new ChamadoDAO();
-        return $dao->FiltrarChamados($situacao);
+        return $dao->FiltrarChamado($idSetor, $situacao, 2);
+    }
+
+    public function DetalharChamado($id)
+    {
+        $dao = new ChamadoDAO();
+        return $dao->DetalharChamado($id);
+    }
+
+    public function AtenderChamado(ChamadoVO $vo)
+    {
+        $vo->setDataAtendimento(UtilCTRL::DataAtual());
+        $vo->setHoraAtendimento(UtilCTRL::HoraAtual());
+        $vo->setIdUsuarioTec(UtilCTRL::CodigoLogado());
+
+        $vo->setFuncaoErro(AtenderChamado);
+        $vo->setIdUserErro(UtilCTRL::CodigoLogado());
+        $vo->setDataErro(UtilCTRL::DataAtualExibir());
+        $vo->setHoraErro(UtilCTRL::HoraAtual());
+
+        $dao = new ChamadoDAO();
+        return $dao->AtenderChamado($vo);
+    }
+
+    public function FinalizarChamado(ChamadoVO $vo)
+    {
+        $vo->setDataEncerramento(UtilCTRL::DataAtual());
+        $vo->setHoraEncerramento(UtilCTRL::HoraAtual());
+        $vo->setIdUsuarioTec(UtilCTRL::CodigoLogado());
+
+        $vo->setFuncaoErro(FinalizarChamado);
+        $vo->setIdUserErro(UtilCTRL::CodigoLogado());
+        $vo->setDataErro(UtilCTRL::DataAtualExibir());
+        $vo->setHoraErro(UtilCTRL::HoraAtual());
+
+        $dao = new ChamadoDAO();
+        return $dao->FinalizarChamado($vo);
+    }
+
+    public function GerarGrafico()
+    {
+        $dao = new ChamadoDAO();
+        return $dao->GerarGrafico();
     }
 }

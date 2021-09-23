@@ -1,12 +1,20 @@
 <?php
 
+require '../../controller/UtilCTRL.php';
 require_once '../../controller/ChamadoCTRL.php';
 require_once '../../vo/ChamadoVO.php';
 
-if(isset($_POST['btnBuscar'])){
+if (isset($_POST['btnBuscar'])) {
 
+    $ctrl = new ChamadoCTRL();
+
+    $situacao = $_POST['situacao'];
+    $dados = $ctrl->FiltrarChamado($situacao, UtilCTRL::IdSetorLogado());
+
+    if (count($dados) == 0) {
+        $ret = 2;
+    }
 }
-
 ?>
 
 <!DOCTYPE html>
@@ -51,61 +59,61 @@ if(isset($_POST['btnBuscar'])){
                 <!-- Default box -->
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title">Consulte todos os chamados e acompanhe os atendimentos</h3>
+                        <h3 class="card-title">Consulte todos o seu chamados do seu setor e acompanhe os atendimentos</h3>
                     </div>
                     <div class="card-body">
-                        <div class="form-group">
-                            <label>Escolha a situação</label>
-                            <?php include_once '../../template/combos/_combo_situacao.php' ?>
+                        <form action="consultar_chamados.php" method="POST">
 
-                        </div>
+                            <div class="form-group">
+                                <label>Escolha a situação</label>
+                                <?php include_once '../../template/combos/_combo_situacao.php' ?>
+                            </div>
 
-                        <button name="btnBuscar" class="btn bg-gradient-primary">Buscar</button>
+                            <button name="btnBuscar" class="btn bg-gradient-primary">Buscar</button>
+                        </form>
                     </div>
 
                 </div>
                 <!-- /.card -->
                 <div class="row">
                     <div class="col-12">
-                        <div class="card">
-                            <div class="card-header">
-                                <h3 class="card-title">Resultado Encontrado</h3>
-                            </div>
-                            <!-- /.card-header -->
-                            <div class="card-body">
-                                <table class="table table-bordered">
-                                    <thead>
-                                        <tr>
-                                            <th>Data Abertura</th>
-                                            <th>Funcionário</th>
-                                            <th>Equipamento</th>
-                                            <th>Problema</th>
-                                            <th>Data Atendimento</th>
-                                            <th>Técnico</th>
-                                            <th>Data Encerramento</th>
-                                            <th>Laudo</th>
-                                            <th>Ação</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>(abertura)</td>
-                                            <td>(funcionario)</td>
-                                            <td>(equipamento)</td>
-                                            <td>(problema)</td>
-                                            <td>(atendimento)</td>
-                                            <td>(tecnico)</td>
-                                            <td>(encerramento)</td>
-                                            <td>(laudo)</td>
-                                            <td>
-                                                <a href="atender_chamado.php" class="btn bg-gradient-primary btn-xs">Ver Mais</a>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
+                        <?php if (isset($dados) && count($dados) > 0) { ?>
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3 class="card-title">Resultado Encontrado</h3>
+                                </div>
+                                <!-- /.card-header -->
+                                <div class="card-body table-responsive">
+                                    <table class="table table-bordered naoQuebraTable">
+                                        <thead>
+                                            <tr>
+                                                <th>Ação</th>
+                                                <th>Data Abertura</th>
+                                                <th>Situação</th>
+                                                <th>Equipamento</th>
+                                                <th>Problema</th>
+                                                <th>Funcionário</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php foreach ($dados as $item) { ?>
+                                                <tr>
+                                                    <td>
+                                                        <a href="atender_chamado.php?id=<?= $item['id_chamado'] ?>" class="btn bg-gradient-primary btn-xs">Ver Mais</a>
+                                                    </td>
+                                                    <td><?= UtilCTRL::DataExibir($item['data_chamado']) ?></td>
+                                                    <td><?= UtilCTRL::SituacaoChamado($item['data_atendimento'], $item['data_encerramento']) ?></td>
+                                                    <td><?= $item['desc_equip'] . ' / ' . $item['ident_equip'] ?></td>
+                                                    <td><?= $item['desc_problema'] ?></td>
+                                                    <td><?= $item['funcionario'] ?></td>
+                                                <?php } ?>
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
 
-                        </div>
+                            </div>
+                        <?php } ?>
                         <!-- /.card -->
                     </div>
                 </div>

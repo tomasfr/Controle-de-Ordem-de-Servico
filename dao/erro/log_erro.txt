@@ -104,3 +104,130 @@
 - CÓDIGO DO LOGADO: 8
 - FUNÇÃO DO ERRO: AbrirChamado
 - MENSAGEM DE ERRO: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'db_os.tb_alocarequio' doesn't exist
+--------------------------------------------------------
+- DATA DO ERRO: 16/09/2021
+- HORÁRIO DO ERRO: 10:23
+- CÓDIGO DO LOGADO: 13
+- FUNÇÃO DO ERRO: AtenderChamado
+- MENSAGEM DE ERRO: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'data_atendimento = '10:23'
+                            hora_atendimento = '13'' at line 3
+--------------------------------------------------------
+- DATA DO ERRO: 16/09/2021
+- HORÁRIO DO ERRO: 10:23
+- CÓDIGO DO LOGADO: 13
+- FUNÇÃO DO ERRO: AtenderChamado
+- MENSAGEM DE ERRO: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'data_atendimento = '10:23'
+                            hora_atendimento = '13'' at line 3
+--------------------------------------------------------
+- DATA DO ERRO: 16/09/2021
+- HORÁRIO DO ERRO: 10:23
+- CÓDIGO DO LOGADO: 13
+- FUNÇÃO DO ERRO: AtenderChamado
+- MENSAGEM DE ERRO: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'data_atendimento = '10:23'
+                            hora_atendimento = '13'' at line 3
+--------------------------------------------------------
+- DATA DO ERRO: 16/09/2021
+- HORÁRIO DO ERRO: 10:23
+- CÓDIGO DO LOGADO: 13
+- FUNÇÃO DO ERRO: AtenderChamado
+- MENSAGEM DE ERRO: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'data_atendimento = '10:23'
+                            hora_atendimento = '13'' at line 3
+--------------------------------------------------------
+- DATA DO ERRO: 16/09/2021
+- HORÁRIO DO ERRO: 10:23
+- CÓDIGO DO LOGADO: 13
+- FUNÇÃO DO ERRO: AtenderChamado
+- MENSAGEM DE ERRO: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'data_atendimento = '10:23'
+                            hora_atendimento = '13'' at line 3
+--------------------------------------------------------
+- DATA DO ERRO: 16/09/2021
+- HORÁRIO DO ERRO: 10:23
+- CÓDIGO DO LOGADO: 13
+- FUNÇÃO DO ERRO: AtenderChamado
+- MENSAGEM DE ERRO: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'data_atendimento = '10:23'
+                            hora_atendimento = '13'' at line 3
+--------------------------------------------------------
+- DATA DO ERRO: 16/09/2021
+- HORÁRIO DO ERRO: 10:23
+- CÓDIGO DO LOGADO: 13
+- FUNÇÃO DO ERRO: AtenderChamado
+- MENSAGEM DE ERRO: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'data_atendimento = '10:23'
+                            hora_atendimento = '13'' at line 3
+--------------------------------------------------------
+- DATA DO ERRO: 16/09/2021
+- HORÁRIO DO ERRO: 10:25
+- CÓDIGO DO LOGADO: 13
+- FUNÇÃO DO ERRO: AtenderChamado
+- MENSAGEM DE ERRO: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'data_atendimento = '10:25'
+                            hora_atendimento = '13'' at line 3
+--------------------------------------------------------
+- DATA DO ERRO: 16/09/2021
+- HORÁRIO DO ERRO: 10:26
+- CÓDIGO DO LOGADO: 13
+- FUNÇÃO DO ERRO: AtenderChamado
+- MENSAGEM DE ERRO: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'data_atendimento = '10:26'
+                            hora_atendimento = '13'' at line 3
+--------------------------------------------------------
+- DATA DO ERRO: 16/09/2021
+- HORÁRIO DO ERRO: 10:26
+- CÓDIGO DO LOGADO: 13
+- FUNÇÃO DO ERRO: AtenderChamado
+- MENSAGEM DE ERRO: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'data_atendimento = '10:26'
+                            hora_atendimento = '13'' at line 3
+--------------------------------------------------------
+- DATA DO ERRO: 16/09/2021
+- HORÁRIO DO ERRO: 10:26
+- CÓDIGO DO LOGADO: 13
+- FUNÇÃO DO ERRO: AtenderChamado
+- MENSAGEM DE ERRO: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'data_atendimento = '10:26'
+                            hora_atendimento = '13'' at line 3
+--------------------------------------------------------
+- DATA DO ERRO: 16/09/2021
+- HORÁRIO DO ERRO: 10:27
+- CÓDIGO DO LOGADO: 13
+- FUNÇÃO DO ERRO: AtenderChamado
+- MENSAGEM DE ERRO: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'data_atendimento = '10:27'
+                            hora_atendimento = '13'' at line 3
+--------------------------------------------------------
+- DATA DO ERRO: 16/09/2021
+- HORÁRIO DO ERRO: 10:27
+- CÓDIGO DO LOGADO: 13
+- FUNÇÃO DO ERRO: AtenderChamado
+- MENSAGEM DE ERRO: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'data_atendimento = '10:27'
+                            hora_atendimento = '13'' at line 3
+--------------------------------------------------------
+- DATA DO ERRO: 16/09/2021
+- HORÁRIO DO ERRO: 10:27
+- CÓDIGO DO LOGADO: 13
+- FUNÇÃO DO ERRO: AtenderChamado
+- MENSAGEM DE ERRO: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'data_atendimento = '10:27'
+                            hora_atendimento = '13'' at line 3
+--------------------------------------------------------
+- DATA DO ERRO: 16/09/2021
+- HORÁRIO DO ERRO: 10:27
+- CÓDIGO DO LOGADO: 13
+- FUNÇÃO DO ERRO: AtenderChamado
+- MENSAGEM DE ERRO: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'data_atendimento = '10:27'
+                            hora_atendimento = '13'' at line 3
+--------------------------------------------------------
+- DATA DO ERRO: 16/09/2021
+- HORÁRIO DO ERRO: 10:28
+- CÓDIGO DO LOGADO: 13
+- FUNÇÃO DO ERRO: AtenderChamado
+- MENSAGEM DE ERRO: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'hora_atendimento = '10:28'
+                            id_usuario_tec = '13'
+ ' at line 3
+--------------------------------------------------------
+- DATA DO ERRO: 16/09/2021
+- HORÁRIO DO ERRO: 10:28
+- CÓDIGO DO LOGADO: 13
+- FUNÇÃO DO ERRO: AtenderChamado
+- MENSAGEM DE ERRO: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'hora_atendimento = '10:28'
+                            id_usuario_tec = '13'
+ ' at line 3
+--------------------------------------------------------
+- DATA DO ERRO: 16/09/2021
+- HORÁRIO DO ERRO: 10:29
+- CÓDIGO DO LOGADO: 13
+- FUNÇÃO DO ERRO: AtenderChamado
+- MENSAGEM DE ERRO: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'where id_chamado = '5'' at line 5
