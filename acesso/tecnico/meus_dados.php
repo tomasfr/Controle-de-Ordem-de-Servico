@@ -4,6 +4,8 @@ require_once '../../controller/UsuarioCTRL.php';
 require_once '../../controller/UtilCTRL.php';
 require_once '../../vo/TecnicoVO.php';
 
+UtilCTRL::ValidarTipoLogado(3);
+
 $ctrl = new UsuarioCTRL();
 
 if (isset($_POST['btnSalvar'])) {

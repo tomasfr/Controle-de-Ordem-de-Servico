@@ -4,6 +4,8 @@ require_once '../../controller/UtilCTRL.php';
 require_once '../../controller/UsuarioCTRL.php';
 require_once '../../vo/UsuarioVO.php';
 
+UtilCTRL::ValidarTipoLogado(1);
+
 $tipo_tela = 'CONSULTAR_USUARIO';
 $tipo_pesq = '';
 $nome_pesq = '';

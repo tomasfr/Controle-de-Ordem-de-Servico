@@ -103,8 +103,8 @@ class UtilCTRL
 
     public static function ValidarTipoLogado($tipo)
     {
-        if (self::TipoLogado() != $tipo);
-        self::Deslogar();
+        if (self::TipoLogado() != $tipo)
+            self::Deslogar();
     }
 
     private static function PaginaLogar()

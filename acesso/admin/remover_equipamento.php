@@ -3,6 +3,9 @@
 require_once '../../controller/SetorCTRL.php';
 require_once '../../controller/EquipamentoCTRL.php';
 require_once '../../vo/AlocarEquipVO.php';
+require_once '../../controller/UtilCTRL.php';
+
+UtilCTRL::ValidarTipoLogado(1);
 
 $ctrl_sets = new SetorCTRL();
 $idSetor = '';

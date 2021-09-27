@@ -2,6 +2,9 @@
 
 require_once '../../vo/TipoEquipVO.php';
 require_once '../../controller/TipoEquipCTRL.php';
+require_once '../../controller/UtilCTRL.php';
+
+UtilCTRL::ValidarTipoLogado(1);
 
 $ctrl = new TipoEquipCTRL();
 

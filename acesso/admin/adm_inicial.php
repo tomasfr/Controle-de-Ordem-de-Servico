@@ -1,11 +1,12 @@
 <?php
 
 require_once $_SERVER['DOCUMENT_ROOT'] . '/Controleos/controller/ChamadoCTRL.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/Controleos/controller/UtilCTRL.php';
+
+UtilCTRL::ValidarTipoLogado(1);
 
 $ctrl = new ChamadoCTRL();
-
 $dados = $ctrl->GerarGrafico();
-
 ?>
 
 <!DOCTYPE html>

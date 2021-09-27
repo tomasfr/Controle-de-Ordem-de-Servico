@@ -2,8 +2,11 @@
 
 require_once '../../vo/ChamadoVO.php';
 require_once '../../controller/ChamadoCTRL.php';
+require_once '../../controller/UtilCTRL.php';
 
-$ctrl = new ChamadoCRTL();
+UtilCTRL::ValidarTipoLogado(2);
+
+$ctrl = new ChamadoCTRL();
 
 if (isset($_POST['btnSalvar'])) {
 

@@ -35,7 +35,14 @@ $nome = UtilCTRL::NomeLogado();
                with font-awesome or any other icon font library -->
 
                 <?php if ($tipo == 1) { ?>
-
+                    <li class="nav-item">
+                        <a href="adm_inicial.php" class="nav-link">
+                            <i class="nav-icon fas fa-th"></i>
+                            <p>
+                                Dashboard
+                            </p>
+                        </a>
+                    </li>
                     <li class="nav-item has-treeview">
                         <a href="#" class="nav-link">
                             <i class="nav-icon fas fa-users-cog"></i>

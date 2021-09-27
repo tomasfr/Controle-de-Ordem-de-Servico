@@ -1,8 +1,10 @@
 <?php
 
-require '../../controller/UtilCTRL.php';
+require_once '../../controller/UtilCTRL.php';
 require_once '../../controller/ChamadoCTRL.php';
 require_once '../../vo/ChamadoVO.php';
+
+UtilCTRL::ValidarTipoLogado(2);
 
 if (isset($_POST['btnBuscar'])) {
 

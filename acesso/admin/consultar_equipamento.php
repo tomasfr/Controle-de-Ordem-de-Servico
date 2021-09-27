@@ -3,6 +3,9 @@
 require_once '../../controller/TipoEquipCTRL.php';
 require_once '../../controller/EquipamentoCTRL.php';
 require_once '../../vo/EquipamentoVO.php';
+require_once '../../controller/UtilCTRL.php';
+
+UtilCTRL::ValidarTipoLogado(1);
 
 $tipo_filtro = '';
 $ctrl_tipo = new TipoEquipCTRL();
@@ -25,7 +28,7 @@ if (isset($_POST['btnBuscar'])) {
 } else if (isset($_POST['btnExcluir'])) {
 
     $ctrl_equi = new EquipamentoCTRL();
- 
+
     $vo = new EquipamentoVO();
     $vo->setIdEquip($_POST['id_excluir']);
 

@@ -2,6 +2,9 @@
 
 require_once '../../controller/UsuarioCTRL.php';
 require_once '../../vo/UsuarioVO.php';
+require_once '../../controller/UtilCTRL.php';
+
+UtilCTRL::ValidarTipoLogado(2);
 
 $ctrl = new UsuarioCTRL();
 

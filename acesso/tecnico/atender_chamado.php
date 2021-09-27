@@ -4,6 +4,8 @@ require_once '../../controller/ChamadoCTRL.php';
 require_once '../../vo/ChamadoVO.php';
 require_once '../../controller/UtilCTRL.php';
 
+UtilCTRL::ValidarTipoLogado(3);
+
 $ctrl = new ChamadoCTRL();
 
 if (isset($_GET['id']) && is_numeric($_GET['id'])) {

@@ -4,6 +4,9 @@ require_once '../../controller/EquipamentoCTRL.php';
 require_once '../../vo/EquipamentoVO.php';
 require_once '../../controller/TipoEquipCTRL.php';
 require_once '../../controller/ModeloCTRL.php';
+require_once '../../controller/UtilCTRL.php';
+
+UtilCTRL::ValidarTipoLogado(1);
 
 $ctrl_tipo = new TipoEquipCTRL;
 $ctrl_modelo = new ModeloCTRL;

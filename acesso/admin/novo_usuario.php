@@ -7,6 +7,9 @@ require_once '../../vo/UsuarioVO.php';
 require_once '../../vo/TecnicoVO.php';
 require_once '../../vo/FuncionarioVO.php';
 require_once '../../controller/SetorCTRL.php';
+require_once '../../controller/UtilCTRL.php';
+
+UtilCTRL::ValidarTipoLogado(1);
 
 $setores = new SetorCTRL();
 

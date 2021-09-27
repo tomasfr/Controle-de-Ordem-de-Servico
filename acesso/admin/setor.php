@@ -2,6 +2,9 @@
 
 require_once $_SERVER['DOCUMENT_ROOT'] . '/Controleos/controller/SetorCTRL.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/Controleos/vo/SetorVO.php';
+require_once '../../controller/UtilCTRL.php';
+
+UtilCTRL::ValidarTipoLogado(1);
 
 $ctrl = new SetorCTRL();
 
