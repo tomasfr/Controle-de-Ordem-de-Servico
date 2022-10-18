@@ -1,4 +1,4 @@
-Sistema de emissão de Ordem de Serviço
+Sistema de emissão de Ordem de Serviço para aprendizado de estrutura MVC
 
 - PHP
 - JavaScript
